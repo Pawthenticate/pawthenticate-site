@@ -797,6 +797,15 @@ export default function HomePage() {
               <Link href="/auth/signup" className="text-gray-400 hover:text-primary-400 transition-colors font-medium">
                 Sign Up
               </Link>
+              <Link href="/privacy" className="text-gray-400 hover:text-primary-400 transition-colors font-medium">
+                Privacy
+              </Link>
+              <Link href="/terms" className="text-gray-400 hover:text-primary-400 transition-colors font-medium">
+                Terms
+              </Link>
+              <Link href="/contact" className="text-gray-400 hover:text-primary-400 transition-colors font-medium">
+                Contact
+              </Link>
             </div>
           </div>
 
@@ -804,7 +813,7 @@ export default function HomePage() {
           <div className="pt-8 border-t border-gray-700">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-500">
               <div className="flex items-center gap-2">
-                <span>© 2024 Pawthenticate</span>
+                <span>© 2025 Pawthenticate</span>
                 <span>•</span>
                 <span>V1 MVP</span>
               </div>
