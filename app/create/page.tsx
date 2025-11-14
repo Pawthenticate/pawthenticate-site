@@ -508,7 +508,7 @@ function CreatePageContent() {
 
       // Upload vaccination certificate to Supabase Storage if it exists
       let vaccinationCertificate = formData.vaccinationCertificate;
-      if (vaccinationCertificate && vaccinationCertificate.dataUrl) {
+      if (vaccinationCertificate && typeof vaccinationCertificate === 'object' && vaccinationCertificate.dataUrl) {
         console.log('[Form] Uploading vaccination certificate to storage...');
         console.log('[Form] Document size:', (vaccinationCertificate.size / 1024).toFixed(2), 'KB');
         
@@ -533,7 +533,7 @@ function CreatePageContent() {
 
       // Upload desexing certificate to Supabase Storage if it exists
       let desexingCertificate = formData.desexingCertificate;
-      if (desexingCertificate && desexingCertificate.dataUrl) {
+      if (desexingCertificate && typeof desexingCertificate === 'object' && desexingCertificate.dataUrl) {
         console.log('[Form] Uploading desexing certificate to storage...');
         console.log('[Form] Document size:', (desexingCertificate.size / 1024).toFixed(2), 'KB');
         
@@ -1493,7 +1493,7 @@ function CreatePageContent() {
                           />
                           {formData.desexingCertificate && (
                             <p className="text-xs text-secondary-600 mt-1">
-                              ✓ {formData.desexingCertificate.name}
+                              ✓ {typeof formData.desexingCertificate === 'object' ? formData.desexingCertificate.name : 'Uploaded'}
                             </p>
                           )}
                         </div>
@@ -1514,7 +1514,7 @@ function CreatePageContent() {
                           />
                           {formData.vaccinationCertificate && (
                             <p className="text-xs text-secondary-600 mt-1">
-                              ✓ {formData.vaccinationCertificate.name}
+                              ✓ {typeof formData.vaccinationCertificate === 'object' ? formData.vaccinationCertificate.name : 'Uploaded'}
                             </p>
                           )}
                         </div>
@@ -2337,7 +2337,7 @@ function CreatePageContent() {
                         </>
                       )}
                       
-                      {(formData.species === 'rabbit' || formData.species === 'guinea-pig' || formData.species === 'hamster') && (
+                      {(formData.species === 'rabbit' || formData.species === 'small-mammal') && (
                         <>
                           <option value="Hutch/Enclosure">Hutch/Enclosure</option>
                           <option value="Indoor pen">Indoor pen</option>
