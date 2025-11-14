@@ -1,8 +1,14 @@
-# 🐾 Pawthenticate
+<div align="center">
+  <img src="public/svg/pawthenticate-logo-complete.svg" alt="Pawthenticate Logo" width="600">
+  
+  <p><strong>Where your pet's story lives</strong></p>
+  
+  <p>A mobile-first web app that helps Australian renters quickly create professional, landlord-ready pet resumes.</p>
+  
+  <img src="public/svg/pawthenticate-icon-only.svg" alt="Pawthenticate Icon" width="120">
+</div>
 
-**Where your pet's story lives**
-
-Pawthenticate is a mobile-first web app that helps Australian renters quickly create professional, landlord-ready pet resumes.
+---
 
 ## 🚀 Quick Start
 
