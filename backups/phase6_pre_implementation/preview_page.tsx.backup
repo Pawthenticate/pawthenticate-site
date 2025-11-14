@@ -1,0 +1,449 @@
+/**
+ * Preview Pet Resume - Display & Print Page
+ * 
+ * This page displays the completed pet resume in a print-ready format.
+ * 
+ * Features:
+ * - Loads saved data from localStorage
+ * - Print-optimized layout
+ * - Beautiful, professional design
+ * - PDF download/print button
+ * - Back button to edit
+ */
+
+'use client';
+
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { PetData, formatAge } from '@/types/pet';
+import { loadPetData } from '@/lib/storage';
+import { getPetById, convertRowToPetData, updatePet } from '@/lib/pets';
+import { getCurrentUser } from '@/lib/auth';
+import { PetMasthead } from '@/components/PetMasthead';
+import { PetResumeCard } from '@/components/PetResumeCard';
+import { PetResumeFooter } from '@/components/PetResumeFooter';
+
+function PreviewPageContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const petId = searchParams.get('petId');
+  
+  const [petData, setPetData] = useState<(Partial<PetData> & { id?: string }) | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [resumeMode, setResumeMode] = useState<'rental' | 'pet_sitter'>('rental');
+  const [user, setUser] = useState<any>(null);
+
+  // Debug: Log mode changes
+  useEffect(() => {
+    console.log('[Preview] 🎯 RESUME MODE CHANGED TO:', resumeMode);
+  }, [resumeMode]);
+
+  // Set dynamic document title for PDF filename
+  useEffect(() => {
+    if (petData?.petName) {
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+      const modeLabel = resumeMode === 'rental' ? 'Rental' : 'PetSitter';
+      const filename = `${petData.petName}_${modeLabel}_Resume_${today}`;
+      document.title = filename;
+      console.log('[Preview] 📄 PDF filename set to:', filename);
+    }
+  }, [petData?.petName, resumeMode]);
+
+  // Load pet data
+  useEffect(() => {
+    const loadData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        // If petId is provided, load from database
+        if (petId) {
+          console.log('[Preview] Loading pet from database:', petId);
+          
+          const currentUser = await getCurrentUser();
+          if (!currentUser) {
+            console.error('[Preview] User not authenticated');
+            router.push('/auth/login');
+            return;
+          }
+          
+          // Save user to state for later use
+          setUser(currentUser);
+
+          const result = await getPetById(petId, currentUser.id);
+          
+          if (result.success && result.data) {
+            console.log('[Preview] ✅ Pet loaded successfully');
+            const data = convertRowToPetData(result.data);
+            console.log('[Preview] ✅ All fields loaded from database (including extended fields)');
+            
+            // Debug: Log document data loaded from database (can be string URL or object)
+            console.log('[Preview] 📄 Documents loaded from database:', {
+              vaccinationCert: data.vaccinationCertificate,
+              vaccinationType: typeof data.vaccinationCertificate,
+              desexingCert: data.desexingCertificate,
+              desexingType: typeof data.desexingCertificate
+            });
+            
+            // Load saved template preference
+            if (data.preferredTemplate) {
+              console.log('[Preview] 📋 Loading saved template preference:', data.preferredTemplate);
+              setResumeMode(data.preferredTemplate);
+            }
+            
+            setPetData(data);
+          } else {
+            console.error('[Preview] ❌ Failed to load pet:', result.error);
+            setError(result.error || 'Failed to load pet');
+            // Redirect to dashboard after showing error
+            setTimeout(() => {
+              router.push('/dashboard');
+            }, 3000);
+          }
+        }
+        // Fallback: Try to load from localStorage (legacy support)
+        else {
+          console.log('[Preview] No petId provided, trying localStorage...');
+          const data = loadPetData();
+          
+          if (data && data.petName) {
+            console.log('[Preview] Loaded from localStorage');
+            setPetData(data);
+          } else {
+            console.log('[Preview] No data found in localStorage');
+            setError('No pet data found');
+            setTimeout(() => {
+              router.push('/dashboard');
+            }, 2000);
+          }
+        }
+      } catch (err) {
+        console.error('[Preview] Unexpected error:', err);
+        setError('An unexpected error occurred');
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 3000);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [petId, router]);
+
+  // Handle print
+  const handlePrint = () => {
+    console.log('[Preview] Printing with mode:', resumeMode);
+    console.log('[Preview] Pet data temperamentSummary:', petData?.temperamentSummary?.substring(0, 100));
+    window.print();
+  };
+
+  // Handle template mode change with preference saving
+  const handleModeChange = async (newMode: 'rental' | 'pet_sitter') => {
+    console.log('[Preview] Switching to', newMode.toUpperCase(), 'mode');
+    setResumeMode(newMode);
+    
+    // Save preference to database if we have a petId
+    if (petId && user) {
+      try {
+        // Ensure we pass the user ID as a string, not the user object
+        const userId = typeof user === 'string' ? user : user.id;
+        const result = await updatePet(petId, userId, { preferredTemplate: newMode });
+        if (result.success) {
+          console.log('[Preview] ✅ Template preference saved:', newMode);
+        } else {
+          console.warn('[Preview] ⚠️ Failed to save template preference:', result.error);
+        }
+      } catch (error) {
+        console.error('[Preview] ❌ Error saving template preference:', error);
+      }
+    }
+  };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 via-secondary-50 to-primary-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="mb-4 flex justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full blur-2xl opacity-50 animate-pulse"></div>
+              <div className="relative bg-white p-6 rounded-3xl shadow-2xl">
+                <span className="text-5xl">🐾</span>
+              </div>
+            </div>
+          </div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-primary-400 mx-auto mb-4"></div>
+          <p className="text-lg font-semibold text-neutral-700">Loading your pet resume...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show error if no data
+  if (error || !petData || !petData.petName) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 via-secondary-50 to-primary-100 flex items-center justify-center px-4">
+        <div className="max-w-md w-full bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-8 text-center">
+          <div className="text-6xl mb-4">🐾</div>
+          <h1 className="text-2xl font-bold text-neutral-900 mb-2">
+            {error || 'No Pet Data Found'}
+          </h1>
+          <p className="text-neutral-600 mb-6">
+            {error ? 'Redirecting to dashboard...' : 'Please create your pet resume first.'}
+          </p>
+          <Link 
+            href="/dashboard" 
+            className="inline-block px-6 py-3 bg-gradient-to-r from-primary-400 to-secondary-400 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+          >
+            Go to Dashboard
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // Format data for display
+  const age = formatAge(petData);
+  const goodWithList = petData.goodWith && petData.goodWith.length > 0
+    ? petData.goodWith.map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(', ')
+    : 'Not specified';
+
+  // Prepare key facts data
+  const keyFacts = [
+    { label: 'Desexed', value: petData.desexed ? 'Yes' : 'No' },
+    { label: 'Microchip', value: petData.microchipNumber || 'Not provided' },
+    { label: 'Vaccinations', value: petData.vaccinationsUpToDate ? 'Up to date' : 'Not current' },
+    { 
+      label: 'Pet Insurance', 
+      value: petData.hasPetInsurance 
+        ? `Yes - ${petData.petInsuranceProvider}` 
+        : 'No'
+    },
+  ];
+
+  // Prepare behaviour data
+  const behaviour = {
+    goodWith: goodWithList,
+    noiseLevel: petData.noiseLevel ? petData.noiseLevel.charAt(0).toUpperCase() + petData.noiseLevel.slice(1) : 'Not specified',
+    usuallyStays: petData.livingLocation === 'mix' ? 'Indoors and Outdoors' : (petData.livingLocation ? petData.livingLocation.charAt(0).toUpperCase() + petData.livingLocation.slice(1) : 'Not specified'),
+    houseTraining: petData.houseTrainingStatus ? petData.houseTrainingStatus.replace(/-/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') : 'Not specified',
+  };
+
+  // Prepare documents data
+  const documents: string[] = [];
+  
+  // Debug: Log the raw document data
+  console.log('[Preview] 🔍 RAW DOCUMENT DATA:', {
+    vaccinationCertificate: petData.vaccinationCertificate,
+    desexingCertificate: petData.desexingCertificate
+  });
+  
+  // Check if certificate exists (can be string URL or object with URLs)
+  if (petData.vaccinationCertificate) {
+    const cert = petData.vaccinationCertificate;
+    // Handle both string URL and object formats
+    if (typeof cert === 'string' && cert.startsWith('http')) {
+      documents.push('Vaccination Certificate (Attached)');
+      console.log('[Preview] ✅ Vaccination certificate found (string URL):', cert.substring(0, 80) + '...');
+    } else if (typeof cert === 'object' && (cert.publicUrl || cert.dataUrl)) {
+      documents.push('Vaccination Certificate (Attached)');
+      console.log('[Preview] ✅ Vaccination certificate found (object):', {
+        hasPublicUrl: !!cert.publicUrl,
+        hasDataUrl: !!cert.dataUrl,
+      });
+    } else {
+      console.log('[Preview] ⚠️ Vaccination certificate exists but invalid format:', typeof cert, cert);
+    }
+  }
+  
+  if (petData.desexingCertificate) {
+    const cert = petData.desexingCertificate;
+    // Handle both string URL and object formats
+    if (typeof cert === 'string' && cert.startsWith('http')) {
+      documents.push('Desexing Certificate (Attached)');
+      console.log('[Preview] ✅ Desexing certificate found (string URL):', cert.substring(0, 80) + '...');
+    } else if (typeof cert === 'object' && (cert.publicUrl || cert.dataUrl)) {
+      documents.push('Desexing Certificate (Attached)');
+      console.log('[Preview] ✅ Desexing certificate found (object):', {
+        hasPublicUrl: !!cert.publicUrl,
+        hasDataUrl: !!cert.dataUrl,
+      });
+    } else {
+      console.log('[Preview] ⚠️ Desexing certificate exists but invalid format:', typeof cert, cert);
+    }
+  }
+  
+  console.log('[Preview] 📄 Total documents to display:', documents.length);
+  
+  const documentsNote = documents.length > 0 ? 'Full documents available upon request' : undefined;
+
+  return (
+    <>
+      {/* Header - No Print */}
+      <header className="no-print bg-white border-b border-gray-200 py-4 px-4 sm:px-6 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center justify-between mb-3">
+            <Link href="/" className="flex items-center gap-3">
+              <img 
+                src="/svg/pawthenticate-icon-only.svg" 
+                alt="Pawthenticate Logo" 
+                className="h-8 w-8"
+              />
+              <span className="font-bold text-neutral-900 hidden sm:inline">Pawthenticate</span>
+            </Link>
+            
+            <div className="flex gap-3">
+              <Link 
+                href="/dashboard"
+                className="px-4 py-2 text-sm font-bold text-neutral-700 bg-white/80 backdrop-blur-sm border-2 border-neutral-200 hover:border-primary-300 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all"
+              >
+                ← Dashboard
+              </Link>
+              {petId && (
+                <Link 
+                  href={`/create?petId=${petId}`}
+                  className="px-4 py-2 text-sm font-bold text-neutral-700 bg-white/80 backdrop-blur-sm border-2 border-neutral-200 hover:border-secondary-300 rounded-full shadow-md hover:shadow-lg transform hover:scale-105 transition-all"
+                >
+                  ✏️ Edit
+                </Link>
+              )}
+              <button 
+                onClick={handlePrint}
+                className="px-4 py-2 text-sm font-bold text-white bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+              >
+                🖨️ Print / Save PDF
+              </button>
+            </div>
+          </div>
+          
+          {/* Resume Mode Switcher */}
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 justify-center">
+            <span className="text-xs sm:text-sm font-medium text-neutral-600">Resume Type:</span>
+            <div className="inline-flex rounded-full bg-neutral-100 p-1 w-full sm:w-auto">
+              <button
+                onClick={() => handleModeChange('rental')}
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-1.5 text-xs sm:text-sm font-bold rounded-full transition-all touch-manipulation ${
+                  resumeMode === 'rental'
+                    ? 'bg-white text-primary-600 shadow-md'
+                    : 'text-neutral-600 hover:text-neutral-900 active:bg-neutral-200'
+                }`}
+                type="button"
+              >
+                🏠 Rental
+              </button>
+              <button
+                onClick={() => handleModeChange('pet_sitter')}
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-1.5 text-xs sm:text-sm font-bold rounded-full transition-all touch-manipulation ${
+                  resumeMode === 'pet_sitter'
+                    ? 'bg-white text-secondary-600 shadow-md'
+                    : 'text-neutral-600 hover:text-neutral-900 active:bg-neutral-200'
+                }`}
+                type="button"
+              >
+                🐾 Pet Sitter
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Resume Content */}
+      <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50 pt-4 pb-8 sm:pb-10 print:bg-white print:py-0 print:min-h-0">
+        <div className="max-w-5xl mx-auto print:px-0 print:max-w-full">
+          {/* Mode Indicator - Visible in preview AND print */}
+          <div className="mb-6 mx-4 sm:mx-6 lg:mx-8 p-4 rounded-2xl bg-white/60 backdrop-blur-sm border-2 border-primary-200 shadow-md text-center print:mb-4 print:mx-0 print:rounded-lg print:bg-white print:border-neutral-300">
+            <p className="text-sm font-semibold text-neutral-700 print:text-xs">
+              {resumeMode === 'rental' ? (
+                <>🏠 <strong>Rental Application Resume</strong> - Landlord-focused information</>
+              ) : (
+                <>🐾 <strong>Pet Sitter / Boarding Resume</strong> - Complete care instructions</>
+              )}
+            </p>
+          </div>
+          
+          {/* Connected Resume Container - Resume Print Root for proper page flow */}
+          <div className="resume-print-root mx-4 sm:mx-6 lg:mx-8 bg-white rounded-3xl shadow-2xl overflow-hidden print:mx-0 print:shadow-none print:rounded-none">
+            {/* Pet Masthead */}
+            <PetMasthead
+              name={petData.petName || ''}
+              species={petData.species ? petData.species.charAt(0).toUpperCase() + petData.species.slice(1) : ''}
+              breed={petData.breed}
+              color={petData.color}
+              ageLabel={age}
+              sizeLabel={petData.size?.toUpperCase()}
+              weightLabel={petData.weightKg ? `${petData.weightKg}kg` : undefined}
+              summary={petData.temperamentSummary || ''}
+              photoUrl={petData.photo}
+            />
+
+            {/* Pet Resume Card - key prop ensures re-render on mode change */}
+            <PetResumeCard
+              key={resumeMode}
+              keyFacts={keyFacts}
+              behaviour={behaviour}
+              documents={documents}
+              documentsNote={documentsNote}
+              temperamentQuote={petData.temperamentSummary}
+              petData={petData}
+              mode={resumeMode}
+            />
+
+            {/* Footer */}
+            <PetResumeFooter />
+          </div>
+
+          {/* Action Buttons (No Print) */}
+          <div className="no-print mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              href="/dashboard"
+              className="px-6 py-3 text-base font-bold text-neutral-700 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all border-2 border-neutral-200 hover:border-primary-300 text-center"
+            >
+              ← Back to Dashboard
+            </Link>
+            {petId && (
+              <Link 
+                href={`/create?petId=${petId}`}
+                className="px-6 py-3 text-base font-bold text-neutral-700 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all border-2 border-neutral-200 hover:border-secondary-300 text-center"
+              >
+                ✏️ Edit Pet
+              </Link>
+            )}
+            <button 
+              onClick={handlePrint}
+              className="px-6 py-3 text-base font-bold text-white bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+            >
+              🖨️ Print / Save as PDF
+            </button>
+          </div>
+        </div>
+      </main>
+    </>
+  );
+}
+
+// Wrap with Suspense for useSearchParams
+export default function PreviewPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 via-secondary-50 to-primary-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="mb-4 flex justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full blur-2xl opacity-50 animate-pulse"></div>
+              <div className="relative bg-white p-6 rounded-3xl shadow-2xl">
+                <span className="text-5xl">🐾</span>
+              </div>
+            </div>
+          </div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-primary-400 mx-auto mb-4"></div>
+          <p className="text-lg font-semibold text-neutral-700">Loading preview...</p>
+        </div>
+      </div>
+    }>
+      <PreviewPageContent />
+    </Suspense>
+  );
+}

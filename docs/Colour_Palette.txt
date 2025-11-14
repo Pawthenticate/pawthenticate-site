@@ -1,0 +1,35 @@
+**Colour Palette:**
+- Primary: 
+    Tint 1: #FF8F8F
+    Tint 2: #FFA8A8
+    Base: #FF6B6B
+    Shade 1: #E05C5C
+    Shade 2: #B84B4B
+
+- Secondary: 
+    Tint 1: #FFC670
+    Tint 2: #FFD699
+    Base: #FFB347
+    Shade 1: #E09E3E
+    Shade 2: #B76F2B
+
+- Accent:
+    Tint 1: #A37568
+    Tint 2: #C0916A
+    Base: #8F6548
+    Shade 1: #734F3E
+    Shade 2: #5A3E2F
+
+- Neutral:
+    Tint 1: #2A3450
+    Tint 2: #3B4667
+    Base: #1F2937 (Dark gray)
+    Shade 1: #191F2E
+    Shade 2: #121824
+
+- Background: 
+    Tint 1: #FFFFFF
+    Tint 2: #FCFCFD
+    Base: #F9FAFB (Light gray)
+    Shade 1: #F2F4F7
+    Shade 2: #E5E7EB

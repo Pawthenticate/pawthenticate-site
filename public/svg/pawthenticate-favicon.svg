@@ -1,0 +1,23 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Simple gradient -->
+    <linearGradient id="simpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFB347;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="64" height="64" fill="#FFF5E6" rx="8"/>
+  
+  <!-- Simplified paw for small size -->
+  <g transform="translate(32, 34)">
+    <!-- Main pad - simplified -->
+    <ellipse cx="0" cy="2" rx="11" ry="9" fill="#FF6B6B"/>
+    
+    <!-- Three toe beans - simplified -->
+    <circle cx="-7" cy="-10" r="4.5" fill="#FFB347"/>
+    <circle cx="0" cy="-13" r="5" fill="#FF6B6B"/>
+    <circle cx="7" cy="-10" r="4.5" fill="#FFB347"/>
+  </g>
+</svg>

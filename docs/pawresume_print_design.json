@@ -1,0 +1,169 @@
+{
+  "name": "PawResume \u2013 Printable Single Column",
+  "version": "1.0.0",
+  "created": "2025-11-12T13:45:07.118755Z",
+  "description": "Design tokens + component spec for the printable resume (gradient masthead, single-column sections).",
+  "tokens": {
+    "colors": {
+      "gradientStart": "#FF6B6B",
+      "gradientEnd": "#FFB347",
+      "primary": "#FF6B6B",
+      "accent": "#FFB347",
+      "text": "#2B2B2B",
+      "textMuted": "#4B5563",
+      "paper": "#FFFFFF",
+      "rule": "#F1DED7",
+      "chipBg": "#FFE7C1",
+      "chipText": "#7A4A17"
+    },
+    "fonts": {
+      "display": {
+        "family": "Merriweather, Georgia, serif",
+        "weight": 800,
+        "size": 40,
+        "lineHeight": 1.15
+      },
+      "subtitle": {
+        "family": "Merriweather, Georgia, serif",
+        "weight": 400,
+        "size": 16,
+        "lineHeight": 1.4
+      },
+      "heading": {
+        "family": "Lato, system-ui, sans-serif",
+        "weight": 800,
+        "size": 18,
+        "lineHeight": 1.2
+      },
+      "label": {
+        "family": "Lato, system-ui, sans-serif",
+        "weight": 700,
+        "size": 11,
+        "letterSpacing": 0.4,
+        "transform": "uppercase"
+      },
+      "body": {
+        "family": "Lato, system-ui, sans-serif",
+        "weight": 400,
+        "size": 13.5,
+        "lineHeight": 1.6
+      },
+      "quote": {
+        "family": "Lato, system-ui, sans-serif",
+        "weight": 400,
+        "style": "italic",
+        "size": 13.5
+      }
+    },
+    "radii": {
+      "avatar": 80,
+      "chip": 999,
+      "card": 12
+    },
+    "spacing": {
+      "0": 0,
+      "1": 4,
+      "2": 8,
+      "3": 12,
+      "4": 16,
+      "5": 20,
+      "6": 24,
+      "7": 28,
+      "8": 32,
+      "10": 40
+    },
+    "borders": {
+      "sectionRule": {
+        "width": 2,
+        "color": "#F1DED7"
+      }
+    }
+  },
+  "layout": {
+    "page": {
+      "size": "A4",
+      "margins": {
+        "top": 22,
+        "right": 22,
+        "bottom": 24,
+        "left": 22
+      }
+    },
+    "masthead": {
+      "height": 220,
+      "gradient": {
+        "start": "{tokens.colors.gradientStart}",
+        "end": "{tokens.colors.gradientEnd}",
+        "angle": 0
+      },
+      "avatar": {
+        "size": 120,
+        "border": {
+          "width": 6,
+          "color": "#FFFFFF"
+        },
+        "radius": "{radii.avatar}"
+      },
+      "titleStyle": "display",
+      "subtitleStyle": "subtitle"
+    },
+    "sections": {
+      "titleStyle": "heading",
+      "grid": {
+        "columns": 2,
+        "gap": 16
+      },
+      "rule": "{tokens.borders.sectionRule}",
+      "contentPadding": 16
+    },
+    "footer": {
+      "bg": "#2B2B2B",
+      "text": "#FFFFFF",
+      "padding": 12,
+      "meta": "References available upon request \u2022 Contact: owner@email.com"
+    }
+  },
+  "components": {
+    "Field": {
+      "labelStyle": "label",
+      "valueStyle": "body",
+      "paddingY": 8,
+      "divider": {
+        "enabled": false
+      }
+    },
+    "Chip": {
+      "bg": "{tokens.colors.chipBg}",
+      "text": "{tokens.colors.chipText}",
+      "radius": "{radii.chip}",
+      "paddingX": 10,
+      "paddingY": 6
+    },
+    "Quote": {
+      "border": {
+        "width": 2,
+        "color": "#FFE0B5",
+        "radius": 12
+      },
+      "padding": 14,
+      "bg": "#FFF9F3",
+      "textStyle": "quote"
+    }
+  },
+  "exampleStructure": {
+    "Masthead": {
+      "title": "Buddy",
+      "subtitle": "Golden Retriever \u2022 3 Years Old"
+    },
+    "Sections": [
+      "Basic Information",
+      "Identification",
+      "Medical Information",
+      "Behavior & Temperament",
+      "Insurance"
+    ],
+    "Footer": {
+      "text": "References available upon request \u2022 Contact: owner@email.com"
+    }
+  }
+}

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon - Pawthenticate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', system-ui, sans-serif;
+            background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 50%, #FFF0DC 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background elements */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: #FF6B6B;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: #FFB347;
+            bottom: -50px;
+            right: -50px;
+            animation-delay: 3s;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: #8F6548;
+            top: 50%;
+            right: 10%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.05);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.95);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-5px) scale(1.1);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 107, 107, 0.15);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .logo-container {
+            margin-bottom: 40px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #1F2937;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .coming-soon {
+            background: linear-gradient(135deg, #FF6B6B 0%, #FFB347 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #8F6548;
+            margin-bottom: 30px;
+            font-weight: 400;
+            font-style: italic;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .description {
+            font-size: 1.125rem;
+            color: #6B7280;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .paw-prints {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 0.8s backwards;
+        }
+
+        .paw {
+            width: 40px;
+            height: 40px;
+            opacity: 0.3;
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .paw:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .paw:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #F9FAFB;
+            animation: fadeInUp 1s ease-out 1s backwards;
+        }
+
+        .email-link {
+            color: #FF6B6B;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: color 0.3s ease;
+        }
+
+        .email-link:hover {
+            color: #FFB347;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.25rem;
+            }
+
+            .description {
+                font-size: 1rem;
+            }
+
+            .logo {
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.125rem;
+            }
+
+            .paw-prints {
+                gap: 20px;
+            }
+
+            .paw {
+                width: 30px;
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <svg class="logo" viewBox="0 0 450 220" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="warmPaw" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#FFB347;stop-opacity:1" />
+                    </linearGradient>
+                    
+                    <linearGradient id="brownPaw" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#8B6345;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#A0826D;stop-opacity:1" />
+                    </linearGradient>
+                    
+                    <radialGradient id="playBlue">
+                        <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#6BA6CD;stop-opacity:1" />
+                    </radialGradient>
+                    
+                    <linearGradient id="grassGreen">
+                        <stop offset="0%" style="stop-color:#7CB342;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#9CCC65;stop-opacity:1" />
+                    </linearGradient>
+                    
+                    <filter id="cuteShadow">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+                        <feOffset dx="2" dy="2" result="offsetblur"/>
+                        <feFlood flood-color="#FFB347" flood-opacity="0.2"/>
+                        <feComposite in2="offsetblur" operator="in"/>
+                        <feMerge>
+                            <feMergeNode/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+                
+                <ellipse cx="80" cy="75" rx="55" ry="52" fill="#FFF5E6" opacity="0.5" transform="rotate(-15 80 75)"/>
+                
+                <g transform="translate(80, 75)">
+                    <path d="M 0,8 
+                             C -20,8 -25,-5 -25,-12
+                             C -25,-18 -22,-22 -18,-22
+                             C -14,-22 -10,-20 0,-10
+                             C 10,-20 14,-22 18,-22
+                             C 22,-22 25,-18 25,-12
+                             C 25,-5 20,8 0,8 Z"
+                          fill="#FF6B6B" stroke="#8B6345" stroke-width="2" stroke-linecap="round" 
+                          transform="scale(1.1) rotate(180)" filter="url(#cuteShadow)"/>
+                    
+                    <ellipse cx="-14" cy="-22" rx="9" ry="11" fill="#FFB347" stroke="#8B6345" stroke-width="1.5" 
+                             transform="rotate(-20 -14 -22)"/>
+                    <ellipse cx="2" cy="-28" rx="10" ry="12" fill="#FF6B6B" stroke="#8B6345" stroke-width="1.5" 
+                             transform="rotate(5 2 -28)"/>
+                    <ellipse cx="16" cy="-20" rx="8" ry="11" fill="#FFB347" stroke="#8B6345" stroke-width="1.5" 
+                             transform="rotate(25 16 -20)"/>
+                    
+                    <path d="M -14,-32 L -14,-36 M 2,-38 L 2,-42 M 16,-30 L 16,-34" 
+                          stroke="#8B6345" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+                </g>
+                
+                <path d="M 35,40 C 35,38 33,36 31,36 C 29,36 27,38 27,40 C 27,38 25,36 23,36 C 21,36 19,38 19,40 Q 27,48 27,48 Q 35,40 35,40 Z" 
+                      fill="#FF9999" opacity="0.7">
+                    <animateTransform attributeName="transform" type="translate" 
+                                      values="0,0; 0,-3; 0,0" dur="2s" repeatCount="indefinite"/>
+                </path>
+                
+                <path d="M 125,95 C 125,93 123,91 121,91 C 119,91 117,93 117,95 C 117,93 115,91 113,91 C 111,91 109,93 109,95 Q 117,103 117,103 Q 125,95 125,95 Z" 
+                      fill="#FFB347" opacity="0.6" transform="scale(0.8)">
+                    <animateTransform attributeName="transform" type="translate" 
+                                      values="0,0; 0,-2; 0,0" dur="2.5s" repeatCount="indefinite"/>
+                </path>
+                
+                <g>
+                    <text x="155" y="80" font-family="Comic Sans MS, Chalkboard SE, sans-serif" 
+                          font-size="38" font-weight="bold" fill="#8B6345">
+                        Paw<tspan fill="#FF6B6B">thenticate</tspan>
+                    </text>
+                    
+                    <text x="155" y="105" font-family="Comic Sans MS, Chalkboard SE, sans-serif" 
+                          font-size="14" fill="#A0826D" style="font-style: italic;">
+                        Where your pet's story lives
+                    </text>
+                    
+                    <path d="M 418,72 L 420,78 L 426,78 L 421,82 L 423,88 L 418,84 L 413,88 L 415,82 L 410,78 L 416,78 Z" 
+                          fill="#FFB347" opacity="0.8">
+                        <animateTransform attributeName="transform" type="rotate" 
+                                          values="0 418 80; 360 418 80" dur="10s" repeatCount="indefinite"/>
+                    </path>
+                </g>
+                
+                <g opacity="0.4">
+                    <g transform="translate(380, 120) scale(0.3) rotate(15)">
+                        <ellipse cx="0" cy="0" rx="6" ry="5" fill="#87CEEB"/>
+                        <circle cx="-4" cy="-7" r="3" fill="#87CEEB"/>
+                        <circle cx="4" cy="-7" r="3" fill="#87CEEB"/>
+                        <circle cx="0" cy="-10" r="3.5" fill="#87CEEB"/>
+                    </g>
+                    
+                    <g transform="translate(40, 120) scale(0.25) rotate(-20)">
+                        <ellipse cx="0" cy="0" rx="6" ry="5" fill="#9CCC65"/>
+                        <circle cx="-4" cy="-7" r="3" fill="#9CCC65"/>
+                        <circle cx="4" cy="-7" r="3" fill="#9CCC65"/>
+                        <circle cx="0" cy="-10" r="3.5" fill="#9CCC65"/>
+                    </g>
+                    
+                    <g transform="translate(350, 45) scale(0.2) rotate(30)">
+                        <ellipse cx="0" cy="0" rx="6" ry="5" fill="#FFB347"/>
+                        <circle cx="-4" cy="-7" r="3" fill="#FFB347"/>
+                        <circle cx="4" cy="-7" r="3" fill="#FFB347"/>
+                        <circle cx="0" cy="-10" r="3.5" fill="#FFB347"/>
+                    </g>
+                </g>
+                
+                <g transform="translate(155, 115)" opacity="0.5">
+                    <rect x="0" y="0" width="25" height="20" fill="none" stroke="#A0826D" stroke-width="1.5" 
+                          stroke-dasharray="2,1" rx="2"/>
+                    <circle cx="8" cy="8" r="2" fill="#FFB347"/>
+                    <path d="M 0,15 L 8,10 L 16,13 L 25,11" stroke="#9CCC65" stroke-width="1.5" fill="none"/>
+                </g>
+                
+                <g transform="translate(230, 115)" opacity="0.5">
+                    <circle cx="0" cy="0" r="8" fill="none" stroke="#87CEEB" stroke-width="1.5"/>
+                    <circle cx="0" cy="-6" r="1.5" fill="#87CEEB"/>
+                    <path d="M -3,0 L 3,0 M -2,3 L 2,3" stroke="#87CEEB" stroke-width="1"/>
+                </g>
+                
+                <g transform="translate(290, 115)" opacity="0.4">
+                    <path d="M 0,0 C -3,0 -3,3 -3,3 C -3,3 -3,6 0,6 L 12,6 C 15,6 15,3 15,3 C 15,3 15,0 12,0 Z" 
+                          fill="#A0826D"/>
+                    <circle cx="-2" cy="1.5" r="3" fill="#A0826D"/>
+                    <circle cx="-2" cy="4.5" r="3" fill="#A0826D"/>
+                    <circle cx="14" cy="1.5" r="3" fill="#A0826D"/>
+                    <circle cx="14" cy="4.5" r="3" fill="#A0826D"/>
+                </g>
+                
+                <path d="M 155,110 Q 165,108 175,110 T 195,110 T 215,110 T 235,110 T 255,110 T 275,110" 
+                      stroke="#FFB347" stroke-width="2" fill="none" opacity="0.4" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <!-- Main Heading -->
+        <h1>
+            <span class="coming-soon">Coming Soon</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="subtitle">Something paw-some is on the way!</p>
+
+        <!-- Description -->
+        <p class="description">
+            We're working hard to bring you an amazing experience where your pet's story comes to life. 
+            Create beautiful, professional resumes for your furry friends that showcase their unique personality, 
+            skills, and adventures.
+        </p>
+
+        <!-- Paw Print Divider -->
+        <div class="paw-prints">
+            <svg class="paw" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(20, 25)">
+                    <ellipse cx="0" cy="0" rx="8" ry="7" fill="#FF6B6B"/>
+                    <circle cx="-6" cy="-9" r="4" fill="#FFB347"/>
+                    <circle cx="6" cy="-9" r="4" fill="#FFB347"/>
+                    <circle cx="0" cy="-13" r="4.5" fill="#FF6B6B"/>
+                </g>
+            </svg>
+            <svg class="paw" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(20, 25)">
+                    <ellipse cx="0" cy="0" rx="8" ry="7" fill="#FFB347"/>
+                    <circle cx="-6" cy="-9" r="4" fill="#FF6B6B"/>
+                    <circle cx="6" cy="-9" r="4" fill="#FF6B6B"/>
+                    <circle cx="0" cy="-13" r="4.5" fill="#FFB347"/>
+                </g>
+            </svg>
+            <svg class="paw" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(20, 25)">
+                    <ellipse cx="0" cy="0" rx="8" ry="7" fill="#8F6548"/>
+                    <circle cx="-6" cy="-9" r="4" fill="#A0826D"/>
+                    <circle cx="6" cy="-9" r="4" fill="#A0826D"/>
+                    <circle cx="0" cy="-13" r="4.5" fill="#8F6548"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="contact-info">
+            <p style="color: #6B7280; margin-bottom: 10px;">Want to be notified when we launch?</p>
+            <a href="mailto:hello@pawthenticate.com" class="email-link">hello@pawthenticate.com</a>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,650 @@
+{
+  "spec_version": "1.0",
+  "module": "pet_profile_resume_modes",
+  "summary": "Single pet profile with two different PDF outputs: Rental resume and Pet sitter/boarding resume.",
+  "goals": [
+    "User creates a pet once and never has to re-type the same information.",
+    "Initial experience is fast and focused on rental applications.",
+    "Later, the user can add more detailed care information for pet sitting / boarding.",
+    "User can export either a rental version or a pet sitter version of the resume from the same pet profile."
+  ],
+  "core_idea": {
+    "one_pet_many_outputs": true,
+    "description": "Each pet is stored as a single PetProfile. The app never duplicates pets. Instead, it uses different PDF templates and field subsets (rental vs pet_sitter) to generate different resumes from the same profile."
+  },
+  "resume_modes": [
+    {
+      "id": "rental",
+      "label": "Rental Application Resume",
+      "primary_use_case": "For real estate applications and landlords/agents.",
+      "template_id": "rental_resume_template",
+      "description": "Uses only the core, high-signal fields that matter to landlords and property managers. Emphasis on behaviour in the home, cleanliness, noise, and risk reduction.",
+      "includes_field_groups": [
+        "core_profile",
+        "behaviour_and_temperament",
+        "home_behaviour",
+        "social_behaviour",
+        "landlord_reassurance",
+        "supporting_documents"
+      ],
+      "always_visible": ["core_profile", "behaviour_and_temperament", "supporting_documents"],
+      "conditional_visible": ["home_behaviour", "social_behaviour", "landlord_reassurance"]
+    },
+    {
+      "id": "pet_sitter",
+      "label": "Pet Sitter / Boarding Resume",
+      "primary_use_case": "For pet sitters, house sitters, boarding kennels, daycare.",
+      "template_id": "pet_care_resume_template",
+      "description": "Uses the same core profile fields but adds detailed daily care info so a sitter can keep the pet safe, healthy, and comfortable. Includes ALL rental sections plus extended care instructions.",
+      "includes_field_groups": [
+        "core_profile",
+        "behaviour_and_temperament",
+        "home_behaviour",
+        "social_behaviour",
+        "landlord_reassurance",
+        "feeding_and_treats",
+        "health_and_meds",
+        "daily_routine",
+        "exercise_and_play",
+        "training_and_commands",
+        "alone_time_and_comfort",
+        "sleeping_and_house_rules",
+        "triggers_and_safety",
+        "grooming_and_handling",
+        "emergency_plan",
+        "extra_notes_for_carer",
+        "dog_specific_notes",
+        "cat_litter_and_toilet",
+        "scratching_and_environment",
+        "small_pet_housing_and_enrichment",
+        "bird_cage_and_environment",
+        "reptile_enclosure_and_heat",
+        "supporting_documents"
+      ],
+      "always_visible": ["core_profile", "behaviour_and_temperament", "supporting_documents"],
+      "conditional_visible": ["home_behaviour", "social_behaviour", "landlord_reassurance", "feeding_and_treats", "health_and_meds", "daily_routine", "exercise_and_play", "training_and_commands", "alone_time_and_comfort", "sleeping_and_house_rules", "triggers_and_safety", "grooming_and_handling", "emergency_plan", "extra_notes_for_carer", "dog_specific_notes", "cat_litter_and_toilet", "scratching_and_environment", "small_pet_housing_and_enrichment", "bird_cage_and_environment", "reptile_enclosure_and_heat"]
+    }
+  ],
+  "entity_model": {
+    "PetProfile": {
+      "description": "Single source of truth for each pet. Both rental and pet-sitter PDFs are generated from this one profile.",
+      "field_groups": [
+        {
+          "id": "core_profile",
+          "label": "Core Profile (shown on creation)",
+          "used_in_modes": [
+            "rental",
+            "pet_sitter"
+          ],
+          "purpose": "Minimum set of fields required to generate a useful rental resume quickly.",
+          "fields": [
+            {
+              "id": "pet_name",
+              "label": "Pet Name",
+              "type": "text",
+              "required_in_creation": true
+            },
+            {
+              "id": "species",
+              "label": "Species",
+              "type": "select",
+              "required_in_creation": true,
+              "helper_text": "Dog, cat, rabbit, bird, etc."
+            },
+            {
+              "id": "breed",
+              "label": "Breed",
+              "type": "select_or_text",
+              "required_in_creation": true
+            },
+            {
+              "id": "age",
+              "label": "Age",
+              "type": "computed_or_manual",
+              "required_in_creation": true,
+              "helper_text": "Either calculate from Date of Birth or allow manual entry with units (weeks, months, years)."
+            },
+            {
+              "id": "size_category",
+              "label": "Size",
+              "type": "select",
+              "options": [
+                "Small",
+                "Medium",
+                "Large",
+                "Giant"
+              ],
+              "required_in_creation": true
+            },
+            {
+              "id": "weight",
+              "label": "Weight (kg)",
+              "type": "number",
+              "required_in_creation": false
+            },
+            {
+              "id": "desexed",
+              "label": "Desexed",
+              "type": "boolean",
+              "required_in_creation": false
+            },
+            {
+              "id": "vaccinations_up_to_date",
+              "label": "Vaccinations up to date",
+              "type": "boolean",
+              "required_in_creation": true
+            },
+            {
+              "id": "microchipped",
+              "label": "Microchipped",
+              "type": "boolean",
+              "required_in_creation": false
+            },
+            {
+              "id": "pet_insurance",
+              "label": "Pet Insurance",
+              "type": "boolean",
+              "required_in_creation": false
+            }
+          ]
+        },
+        {
+          "id": "home_behaviour",
+          "label": "Behaviour in the Home",
+          "used_in_modes": [
+            "rental",
+            "pet_sitter"
+          ],
+          "purpose": "Reassures landlords and gives sitters expectations for how the pet behaves indoors.",
+          "fields": [
+            {
+              "id": "house_trained",
+              "label": "House Trained",
+              "type": "select",
+              "options": [
+                "Yes",
+                "Mostly",
+                "Still training"
+              ]
+            },
+            {
+              "id": "barking_noise_level",
+              "label": "Barking / Noise Level",
+              "type": "select",
+              "options": [
+                "Very quiet",
+                "Moderate",
+                "Vocal"
+              ]
+            },
+            {
+              "id": "home_behaviour_summary",
+              "label": "Home Behaviour Summary",
+              "type": "textarea",
+              "helper_text": "Short summary focused on being calm, clean, and respectful of the property."
+            }
+          ]
+        },
+        {
+          "id": "social_behaviour",
+          "label": "Social Behaviour",
+          "used_in_modes": [
+            "rental",
+            "pet_sitter"
+          ],
+          "purpose": "Helps both landlords and sitters know how the pet behaves around people and other animals.",
+          "fields": [
+            {
+              "id": "good_with_kids",
+              "label": "Good with children",
+              "type": "select",
+              "options": [
+                "Yes",
+                "With supervision",
+                "Prefer adults only"
+              ]
+            },
+            {
+              "id": "good_with_dogs",
+              "label": "Good with other dogs",
+              "type": "select"
+            },
+            {
+              "id": "good_with_cats",
+              "label": "Good with cats",
+              "type": "select"
+            },
+            {
+              "id": "temperament_summary",
+              "label": "Temperament Summary",
+              "type": "textarea",
+              "helper_text": "Friendly, calm, shy, energetic, etc."
+            }
+          ]
+        },
+        {
+          "id": "landlord_reassurance",
+          "label": "Landlord Reassurance",
+          "used_in_modes": [
+            "rental"
+          ],
+          "purpose": "Rental-specific reassurance for property managers.",
+          "fields": [
+            {
+              "id": "property_damage_history",
+              "label": "Property Damage History",
+              "type": "select",
+              "options": [
+                "No damage",
+                "Minor wear only"
+              ],
+              "helper_text": "Landlords want to see that the pet is low-risk."
+            },
+            {
+              "id": "rental_specific_notes",
+              "label": "Rental Notes",
+              "type": "textarea",
+              "helper_text": "Short, positive note emphasising cleanliness, routine, and responsible ownership."
+            }
+          ]
+        },
+        {
+          "id": "feeding_and_treats",
+          "label": "Feeding & Treats",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "purpose": "Tells sitters what, when, and how much to feed.",
+          "fields": [
+            {
+              "id": "food_type",
+              "label": "Food Type & Brand",
+              "type": "text"
+            },
+            {
+              "id": "feeding_schedule",
+              "label": "Feeding Times",
+              "type": "text",
+              "helper_text": "e.g. 7am and 6pm."
+            },
+            {
+              "id": "portion_size",
+              "label": "Portion Size",
+              "type": "text",
+              "helper_text": "Cups or grams per meal."
+            },
+            {
+              "id": "treats_allowed",
+              "label": "Treats Allowed",
+              "type": "textarea",
+              "helper_text": "Which treats are okay and which to avoid."
+            },
+            {
+              "id": "food_allergies",
+              "label": "Food Allergies / Sensitivities",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "health_and_meds",
+          "label": "Health & Medications",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "purpose": "Gives sitters everything they need to manage health safely.",
+          "fields": [
+            {
+              "id": "health_conditions",
+              "label": "Existing Health Conditions",
+              "type": "textarea"
+            },
+            {
+              "id": "medications",
+              "label": "Medications (name, dose, time, how to give)",
+              "type": "textarea"
+            },
+            {
+              "id": "vet_clinic_name",
+              "label": "Vet Clinic Name",
+              "type": "text"
+            },
+            {
+              "id": "vet_clinic_phone",
+              "label": "Vet Clinic Phone",
+              "type": "text"
+            },
+            {
+              "id": "emergency_vet_details",
+              "label": "Emergency Vet (if different)",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "daily_routine",
+          "label": "Daily Routine",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "purpose": "Helps sitters keep the pet’s day predictable.",
+          "fields": [
+            {
+              "id": "wake_time",
+              "label": "Typical Wake Time",
+              "type": "text"
+            },
+            {
+              "id": "walk_play_times",
+              "label": "Usual Walk / Play Times",
+              "type": "textarea"
+            },
+            {
+              "id": "nap_times",
+              "label": "Usual Nap Times",
+              "type": "textarea"
+            },
+            {
+              "id": "bedtime",
+              "label": "Bedtime",
+              "type": "text"
+            }
+          ]
+        },
+        {
+          "id": "exercise_and_play",
+          "label": "Exercise & Play",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "fields": [
+            {
+              "id": "exercise_level",
+              "label": "Exercise Level",
+              "type": "select",
+              "options": [
+                "Low",
+                "Moderate",
+                "High"
+              ]
+            },
+            {
+              "id": "daily_exercise_amount",
+              "label": "Daily Exercise Amount",
+              "type": "text",
+              "helper_text": "e.g. 2 x 20 minute walks."
+            },
+            {
+              "id": "off_lead_allowed",
+              "label": "Off-lead Allowed",
+              "type": "select",
+              "options": [
+                "Yes",
+                "No",
+                "Only in secure areas"
+              ]
+            },
+            {
+              "id": "favourite_games",
+              "label": "Favourite Games",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "training_and_commands",
+          "label": "Training & Commands",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "fields": [
+            {
+              "id": "training_level",
+              "label": "Training Level",
+              "type": "select",
+              "options": [
+                "Puppy",
+                "Basic",
+                "Advanced",
+                "Still learning"
+              ]
+            },
+            {
+              "id": "commands_known",
+              "label": "Commands Known",
+              "type": "textarea",
+              "helper_text": "List words/cues like Sit, Drop, Stay, Come, Leave it, Bed, etc."
+            },
+            {
+              "id": "walking_style",
+              "label": "Walking Style",
+              "type": "textarea",
+              "helper_text": "Pulls on leash, needs harness, reacts to other dogs, etc."
+            }
+          ]
+        },
+        {
+          "id": "alone_time_and_comfort",
+          "label": "Alone Time & Comfort",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "fields": [
+            {
+              "id": "max_alone_hours",
+              "label": "Max Time Alone (hours)",
+              "type": "number"
+            },
+            {
+              "id": "separation_anxiety_level",
+              "label": "Separation Anxiety",
+              "type": "select",
+              "options": [
+                "None",
+                "Mild",
+                "Moderate",
+                "Severe"
+              ]
+            },
+            {
+              "id": "safe_spaces",
+              "label": "Where They’re Comfortable Being Left",
+              "type": "textarea",
+              "helper_text": "Crate, laundry, free roam, backyard, etc."
+            },
+            {
+              "id": "escape_risk",
+              "label": "Escape Risk / Notes",
+              "type": "textarea",
+              "helper_text": "Fence jumper, door dasher, digger, etc."
+            }
+          ]
+        },
+        {
+          "id": "sleeping_and_house_rules",
+          "label": "Sleeping & House Rules",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "fields": [
+            {
+              "id": "sleeping_location",
+              "label": "Usual Sleeping Location",
+              "type": "select",
+              "options": [
+                "Crate",
+                "Dog bed",
+                "Owner's bed",
+                "Couch",
+                "Other"
+              ]
+            },
+            {
+              "id": "furniture_rules",
+              "label": "Furniture Rules",
+              "type": "textarea",
+              "helper_text": "Allowed on couch, bed, only by invitation, not allowed, etc."
+            },
+            {
+              "id": "bedtime_rituals",
+              "label": "Bedtime Rituals",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "triggers_and_safety",
+          "label": "Triggers & Safety",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "fields": [
+            {
+              "id": "fears_and_triggers",
+              "label": "Fears & Triggers",
+              "type": "textarea",
+              "helper_text": "Thunder, fireworks, loud trucks, certain people, etc."
+            },
+            {
+              "id": "reactivity_notes",
+              "label": "Reactivity Notes",
+              "type": "textarea",
+              "helper_text": "On-leash reactivity, resource guarding, etc."
+            },
+            {
+              "id": "bite_history",
+              "label": "Bite History (if any, context only)",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "grooming_and_handling",
+          "label": "Grooming & Handling",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "fields": [
+            {
+              "id": "brushing_preferences",
+              "label": "Brushing (how often, okay with it?)",
+              "type": "textarea"
+            },
+            {
+              "id": "bathing_preferences",
+              "label": "Bathing (how often, any special shampoo?)",
+              "type": "textarea"
+            },
+            {
+              "id": "sensitive_areas",
+              "label": "Sensitive Areas",
+              "type": "textarea",
+              "helper_text": "Paws, ears, tail, etc."
+            }
+          ]
+        },
+        {
+          "id": "emergency_plan",
+          "label": "Emergency Plan",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "fields": [
+            {
+              "id": "emergency_contacts",
+              "label": "Emergency Contacts (order of contact)",
+              "type": "textarea"
+            },
+            {
+              "id": "vet_spend_limit",
+              "label": "Vet Spend Limit Without Prior Approval",
+              "type": "text",
+              "helper_text": "e.g. Up to $300 if urgent."
+            },
+            {
+              "id": "insurance_details",
+              "label": "Insurance Details (policy, provider)",
+              "type": "textarea"
+            }
+          ]
+        },
+        {
+          "id": "extra_notes_for_carer",
+          "label": "Extra Notes for Carer",
+          "used_in_modes": [
+            "pet_sitter"
+          ],
+          "fields": [
+            {
+              "id": "carer_notes",
+              "label": "Anything Else You Should Know",
+              "type": "textarea"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ui_flows": {
+    "create_pet": {
+      "description": "Fast, rental-focused creation flow.",
+      "steps": [
+        "User clicks 'Create New Pet Resume'.",
+        "Show only fields from field_group 'core_profile', plus minimal behaviour sections needed for a rental resume (home_behaviour, social_behaviour, landlord_reassurance).",
+        "Clearly label this as 'Core details – enough to create a rental-ready pet resume in a few minutes.'",
+        "On submit, create PetProfile with those fields filled.",
+        "Show success state with an option: 'Generate Rental PDF now'."
+      ]
+    },
+    "edit_pet": {
+      "description": "Full pet profile editor where user can add more detail over time.",
+      "sections": [
+        {
+          "id": "core_section",
+          "label": "Core Details (used in both resumes)",
+          "includes_field_groups": [
+            "core_profile",
+            "home_behaviour",
+            "social_behaviour",
+            "landlord_reassurance"
+          ],
+          "notes": "These fields are always safe to show in both rental and pet sitter versions."
+        },
+        {
+          "id": "pet_care_section",
+          "label": "Extra Details for Pet Sitters & Boarding",
+          "includes_field_groups": [
+            "feeding_and_treats",
+            "health_and_meds",
+            "daily_routine",
+            "exercise_and_play",
+            "training_and_commands",
+            "alone_time_and_comfort",
+            "sleeping_and_house_rules",
+            "triggers_and_safety",
+            "grooming_and_handling",
+            "emergency_plan",
+            "extra_notes_for_carer"
+          ],
+          "notes": "These fields are optional. They are only used in the pet_sitter resume mode."
+        }
+      ],
+      "completion_indicators": {
+        "rental_resume_status": "Complete if required core fields are filled.",
+        "pet_sitter_resume_status": "Show a progress indicator based on how many pet_sitter field groups have at least one field filled."
+      }
+    },
+    "download_resume": {
+      "description": "User chooses which resume version to export as PDF.",
+      "flow": [
+        "User clicks a 'Download / Print' button on the PetProfile.",
+        "Open a modal with two options:",
+        "Option 1: 'Rental Application Resume' (mode = rental, template_id = rental_resume_template).",
+        "Option 2: 'Pet Sitter / Boarding Resume' (mode = pet_sitter, template_id = pet_care_resume_template).",
+        "When the user selects a mode, generate the PDF using the appropriate template and field groups.",
+        "Only fields in the selected mode's 'includes_field_groups' array should appear in the PDF.",
+        "Optionally, offer 'Download both' which generates two PDFs with different filenames, e.g. '{pet_name}-rental.pdf' and '{pet_name}-pet-sitter.pdf'."
+      ]
+    }
+  }
+}

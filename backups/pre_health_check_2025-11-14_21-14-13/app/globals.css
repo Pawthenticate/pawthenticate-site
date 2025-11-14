@@ -1,0 +1,416 @@
+/**
+ * Global Styles for Pawthenticate
+ * 
+ * This file imports Tailwind CSS and defines global styles.
+ * It also includes custom print styles for the PDF export functionality.
+ */
+
+/* Import Google Fonts for the print design - must come first! */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;800&family=Lato:wght@400;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom utility layer for additional helpers */
+@layer utilities {
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* 
+ * Custom CSS Layer for Reusable Components
+ * 
+ * These are component classes we can reuse throughout the app.
+ * Using @layer ensures proper CSS specificity with Tailwind.
+ */
+@layer components {
+  /* Button styles matching the Pawthenticate brand - all buttons are touch-friendly (≥44px) */
+  .btn-primary {
+    @apply bg-primary-400 hover:bg-primary-500 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl;
+    min-height: 48px; /* Touch-friendly tap target */
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-400 hover:bg-secondary-500 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200;
+    min-height: 48px; /* Touch-friendly tap target */
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary-400 text-primary-400 hover:bg-primary-50 font-bold py-3 px-6 rounded-lg transition-colors duration-200;
+    min-height: 48px; /* Touch-friendly tap target */
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+
+  /* Form input styles - 16px font size prevents iOS zoom on focus */
+  .input {
+    @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200;
+    font-size: 16px; /* Prevents iOS zoom on input focus */
+    min-height: 48px; /* Ensures touch-friendly tap target (Apple HIG: 44px minimum) */
+  }
+
+  .textarea {
+    @apply w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary-400 focus:ring-2 focus:ring-primary-100 outline-none transition-all duration-200 min-h-[100px] resize-y;
+    font-size: 16px; /* Prevents iOS zoom on input focus */
+  }
+
+  .label {
+    @apply block text-sm font-bold text-neutral-900 mb-2;
+  }
+  
+  /* Select dropdown styles - also needs 16px to prevent zoom */
+  select {
+    font-size: 16px !important; /* Prevents iOS zoom */
+    min-height: 48px; /* Touch-friendly */
+  }
+  
+  /* Input elements should be touch-friendly */
+  input, textarea, select, button {
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+
+  /* Card styles for sections */
+  .card {
+    @apply bg-white rounded-xl shadow-md p-6 border border-gray-100;
+  }
+
+  /* Section heading styles */
+  .section-heading {
+    @apply text-2xl font-bold text-neutral-900 mb-4;
+  }
+}
+
+/*
+ * Print Styles for PDF Export
+ * 
+ * These styles are applied when the user clicks "Print" or "Save as PDF".
+ * They transform the preview page into a professional, single-page resume.
+ * Optimized to fit all content on one A4 page.
+ */
+@media print {
+  /* A4 page setup with optimal margins for printing */
+  @page {
+    size: A4 portrait; /* 210mm x 297mm */
+    margin: 15mm 10mm; /* Top/Bottom: 15mm, Left/Right: 10mm */
+  }
+
+  /* Reset body and html for print with A4 dimensions */
+  html, body {
+    background: white !important;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    width: 210mm; /* A4 width */
+    max-width: 210mm;
+  }
+  
+  /* Ensure the main content fits within A4 printable area */
+  body {
+    width: 190mm; /* 210mm - (2 * 10mm margins) */
+    max-width: 190mm;
+    margin: 0 auto;
+  }
+
+  /* Hide UI elements that shouldn't print */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Force print colors and backgrounds */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+
+  /* Ensure gradient backgrounds and colored elements print correctly */
+  [class*="bg-gradient"], 
+  section[style*="gradient"],
+  div[style*="backgroundColor"],
+  div[style*="background"] {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Ensure content flows naturally for print - do NOT avoid page breaks at main level */
+  main {
+    /* REMOVED: page-break-inside and page-break-after to allow natural flow */
+    padding: 0 !important;
+    margin: 0 !important;
+    background: white !important;
+    min-height: auto !important; /* Override any min-height that might cause issues */
+  }
+
+  /* SPECIFIC: Only apply page-break-inside: avoid to individual resume sections, not all sections */
+  /* Individual sections should stay together, but the masthead and card wrapper should flow */
+  .print-section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Debug borders removed - print layout is working correctly */
+  .print-section {
+    /* outline: 1px solid #e0e0e0; */
+  }
+  
+  /* Allow the resume root to flow naturally with A4 dimensions */
+  .resume-print-root {
+    /* outline: 2px solid #ff8585; */
+    width: 100% !important;
+    max-width: 190mm !important; /* Match body width (A4 minus margins) */
+    margin: 0 auto !important;
+  }
+  
+  /* Ensure the connected resume container prints without shadows/margins */
+  .print\:mx-0 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+  
+  .print\:rounded-none {
+    border-radius: 0 !important;
+  }
+  
+  /* Ensure main content wrapper respects A4 width */
+  .print\:max-w-full {
+    max-width: 190mm !important;
+    width: 100% !important;
+  }
+
+  /* Compact spacing for print */
+  .space-y-6 {
+    gap: 1rem !important;
+  }
+
+  .space-y-8 {
+    gap: 1.25rem !important;
+  }
+
+  .space-y-10 {
+    gap: 1.5rem !important;
+  }
+
+  /* Reduce padding/margins in print */
+  .print\:space-y-4 {
+    gap: 0.75rem !important;
+  }
+
+  /* Optimize text sizes for better A4 fill */
+  h1 {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  h2 {
+    font-size: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  p, div {
+    font-size: 0.95rem !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Optimize avatar size for print */
+  .print\:w-24 {
+    width: 6rem !important;
+    height: 6rem !important;
+  }
+
+  /* Force 2-column grid in print */
+  .print\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/*
+ * Base Styles
+ */
+body {
+  @apply bg-background-200 text-neutral-900 antialiased;
+  font-family: 'Lato', system-ui, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus visible for accessibility */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-primary-400;
+}
+
+/* Custom Animations for Landing Page */
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-3000 {
+  animation-delay: 3s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Touch-friendly interactions for mobile */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Ensure buttons have proper z-index and are clickable */
+button[type="button"] {
+  position: relative;
+  z-index: 1;
+}
+
+/* Improve header stacking context */
+header {
+  position: sticky;
+  z-index: 50;
+}

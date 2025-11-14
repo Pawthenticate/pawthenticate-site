@@ -1,0 +1,203 @@
+{
+  "meta": {
+    "name": "Before / After Pawthenticate Section",
+    "description": "Design spec for the Before/After comparison section on the Pawthenticate landing page.",
+    "componentName": "BeforeAfterSection",
+    "framework": "react",
+    "styling": "tailwindcss"
+  },
+  "tokens": {
+    "colors": {
+      "neutralBase": "#1F2937",
+      "neutralShade1": "#191F2E",
+      "neutralTint2": "#3B4667",
+      "primaryTint1": "#FF8F8F",
+      "primaryShade2": "#B84B4B",
+      "secondaryTint1": "#FFC670",
+      "secondaryBase": "#FFB347"
+    }
+  },
+  "section": {
+    "id": "before-after",
+    "tag": "section",
+    "className": "bg-[#1F2937] py-12 md:py-16",
+    "container": {
+      "tag": "div",
+      "className": "max-w-5xl mx-auto px-4"
+    },
+    "header": {
+      "eyebrow": {
+        "tag": "p",
+        "text": "Before vs After",
+        "className": "text-xs tracking-[0.2em] uppercase text-[#FFC670] font-semibold text-center"
+      },
+      "title": {
+        "tag": "h2",
+        "text": "See the difference in one application",
+        "className": "mt-2 text-2xl md:text-3xl font-bold text-white text-center"
+      },
+      "subtitle": {
+        "tag": "p",
+        "text": "From scrappy Word docs to a polished, landlord-ready pet resume in minutes.",
+        "className": "mt-2 text-sm md:text-base text-gray-300 max-w-2xl mx-auto text-center"
+      },
+      "wrapperClassName": "text-center mb-8 md:mb-10"
+    },
+    "layout": {
+      "grid": {
+        "tag": "div",
+        "className": "grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"
+      },
+      "stackingBehavior": {
+        "mobile": "stack cards vertically in order: before, then after",
+        "desktop": "two-column layout with equal-width cards"
+      }
+    },
+    "cards": [
+      {
+        "id": "before-card",
+        "variant": "before",
+        "emotion": "sad",
+        "backgroundColor": "#191F2E",
+        "borderColor": "rgba(255,255,255,0.05)",
+        "iconColor": "#B84B4B",
+        "tag": "div",
+        "className": "bg-[#191F2E] border border-white/5 rounded-2xl p-6 md:p-8 shadow-lg shadow-black/40 flex flex-col",
+        "heading": {
+          "tag": "h3",
+          "text": "Before Pawthenticate 😩",
+          "className": "text-xl md:text-2xl font-semibold text-white"
+        },
+        "intro": {
+          "tag": "p",
+          "text": "Every rental application feels like starting from scratch.",
+          "className": "mt-1 text-sm md:text-base text-gray-300"
+        },
+        "bullets": [
+          {
+            "text": "Scrappy Word docs",
+            "icon": {
+              "shape": "circle",
+              "color": "#B84B4B",
+              "className": "w-2.5 h-2.5 rounded-full bg-[#B84B4B] mt-1 flex-shrink-0"
+            },
+            "textClassName": "text-sm md:text-base text-gray-200"
+          },
+          {
+            "text": "Forgot vet records",
+            "icon": {
+              "shape": "circle",
+              "color": "#B84B4B",
+              "className": "w-2.5 h-2.5 rounded-full bg-[#B84B4B] mt-1 flex-shrink-0"
+            },
+            "textClassName": "text-sm md:text-base text-gray-200"
+          },
+          {
+            "text": "Different info every time",
+            "icon": {
+              "shape": "circle",
+              "color": "#B84B4B",
+              "className": "w-2.5 h-2.5 rounded-full bg-[#B84B4B] mt-1 flex-shrink-0"
+            },
+            "textClassName": "text-sm md:text-base text-gray-200"
+          }
+        ],
+        "bulletList": {
+          "tag": "ul",
+          "className": "mt-4 space-y-3",
+          "itemWrapperClassName": "flex gap-3"
+        },
+        "footerNote": {
+          "tag": "p",
+          "text": "Feels messy and inconsistent.",
+          "className": "mt-4 text-xs text-gray-400"
+        }
+      },
+      {
+        "id": "after-card",
+        "variant": "after",
+        "emotion": "happy",
+        "backgroundColor": "#3B4667",
+        "borderColor": "rgba(255,198,112,0.4)",
+        "tag": "div",
+        "className": "bg-[#3B4667] border border-[#FFC670]/40 rounded-2xl p-6 md:p-8 shadow-xl shadow-black/40 flex flex-col",
+        "heading": {
+          "tag": "h3",
+          "text": "After Pawthenticate 😊",
+          "className": "text-xl md:text-2xl font-semibold text-white"
+        },
+        "intro": {
+          "tag": "p",
+          "text": "You send one clean, consistent pet resume that works everywhere.",
+          "className": "mt-1 text-sm md:text-base text-gray-200"
+        },
+        "bullets": [
+          {
+            "text": "One reusable pet profile",
+            "icon": {
+              "shape": "circle",
+              "color": "#FFC670",
+              "className": "w-2.5 h-2.5 rounded-full bg-[#FFC670] mt-1 flex-shrink-0"
+            },
+            "textClassName": "text-sm md:text-base text-gray-100 font-medium"
+          },
+          {
+            "text": "2–click PDF downloads",
+            "icon": {
+              "shape": "circle",
+              "color": "#FF8F8F",
+              "className": "w-2.5 h-2.5 rounded-full bg-[#FF8F8F] mt-1 flex-shrink-0"
+            },
+            "textClassName": "text-sm md:text-base text-gray-100 font-medium"
+          },
+          {
+            "text": "Looks like a pro designed it",
+            "icon": {
+              "shape": "circle",
+              "color": "#FFC670",
+              "className": "w-2.5 h-2.5 rounded-full bg-[#FFC670] mt-1 flex-shrink-0"
+            },
+            "textClassName": "text-sm md:text-base text-gray-100 font-medium"
+          }
+        ],
+        "bulletList": {
+          "tag": "ul",
+          "className": "mt-4 space-y-3",
+          "itemWrapperClassName": "flex gap-3"
+        },
+        "footerNote": {
+          "tag": "p",
+          "text": "Landlords remember your pet for the right reasons.",
+          "className": "mt-4 text-xs text-gray-200"
+        }
+      }
+    ],
+    "tagline": {
+      "tag": "p",
+      "textParts": [
+        "Landlords want ",
+        {
+          "text": "clarity",
+          "highlightColor": "#FFC670",
+          "className": "text-[#FFC670] font-semibold"
+        },
+        ". You give them ",
+        {
+          "text": "confidence",
+          "highlightColor": "#FF8F8F",
+          "className": "text-[#FF8F8F] font-semibold"
+        },
+        "."
+      ],
+      "className": "mt-8 text-center text-sm md:text-base text-gray-200"
+    },
+    "accessibility": {
+      "notes": [
+        "Use semantic HTML: section, h2 for the section title, h3 for card titles, ul/li for bullet lists.",
+        "Ensure text color on #191F2E and #3B4667 stays high contrast (use white or light gray).",
+        "Icons are decorative; mark them aria-hidden or with role=presentation.",
+        "The section is informational only; no interactive controls required."
+      ]
+    }
+  }
+}

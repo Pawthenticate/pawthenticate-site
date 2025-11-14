@@ -1,0 +1,64 @@
+<svg viewBox="0 0 350 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Warm colors for text -->
+    <linearGradient id="warmGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B6B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFB347;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Brown gradient -->
+    <linearGradient id="brownGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B6345;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A0826D;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Grass green for accent -->
+    <linearGradient id="grassGreen">
+      <stop offset="0%" style="stop-color:#7CB342;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9CCC65;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main Typography -->
+  <g>
+    <!-- Main text with playful font -->
+    <text x="10" y="40" font-family="Comic Sans MS, Chalkboard SE, sans-serif" 
+          font-size="38" font-weight="bold" fill="#8B6345">
+      Paw<tspan fill="#FF6B6B">thenticate</tspan>
+    </text>
+    
+    <!-- Tagline with casual style -->
+    <text x="10" y="65" font-family="Comic Sans MS, Chalkboard SE, sans-serif" 
+          font-size="14" fill="#A0826D" style="font-style: italic;">
+      Where your pet's story lives
+    </text>
+    
+    <!-- Little star accent after the name -->
+    <path d="M 273,27 L 275,33 L 281,33 L 276,37 L 278,43 L 273,39 L 268,43 L 270,37 L 265,33 L 271,33 Z" 
+          fill="#FFB347" opacity="0.8">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="0 273 35; 360 273 35" dur="10s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Small decorative hearts -->
+    <g opacity="0.6">
+      <path d="M 295,30 C 295,28 293,26 291,26 C 289,26 287,28 287,30 C 287,28 285,26 283,26 C 281,26 279,28 279,30 Q 287,36 287,36 Q 295,30 295,30 Z" 
+            fill="#FF9999" transform="scale(0.5)">
+        <animateTransform attributeName="transform" type="translate" 
+                          values="0,0; 0,-2; 0,0" dur="2s" repeatCount="indefinite"/>
+      </path>
+    </g>
+    
+    <!-- Playful squiggle underline -->
+    <path d="M 10,70 Q 20,68 30,70 T 50,70 T 70,70 T 90,70 T 110,70 T 130,70" 
+          stroke="#FFB347" stroke-width="2" fill="none" opacity="0.4" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Small paw accent dots -->
+  <g opacity="0.3">
+    <circle cx="305" cy="45" r="2" fill="#FFB347"/>
+    <circle cx="310" cy="40" r="1.5" fill="#FF6B6B"/>
+    <circle cx="315" cy="43" r="1.5" fill="#FFB347"/>
+    <circle cx="312" cy="48" r="1.5" fill="#FF6B6B"/>
+  </g>
+</svg>
