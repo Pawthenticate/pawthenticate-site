@@ -1,26 +1,12 @@
 /**
- * Home Page - Redirect to Coming Soon
+ * Home Page - Coming Soon
  * 
- * Temporarily redirects to static coming soon page while
- * we work on the full application in the background.
+ * Shows the coming soon page with MailerLite waitlist form
  */
 
-'use client';
-
-import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-  useEffect(() => {
-    // Redirect to the static coming soon page
-    window.location.replace('/coming-soon.html');
-  }, []);
-
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFF5E6] via-[#FFE8CC] to-[#FFF0DC]">
-      <div className="text-center">
-        <div className="text-5xl mb-4">🐾</div>
-        <p className="text-xl text-neutral-700">Redirecting...</p>
-      </div>
-    </div>
-  );
+  // Redirect to the static HTML page using Next.js server redirect
+  redirect('/coming-soon.html');
 }
