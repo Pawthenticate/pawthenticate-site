@@ -1074,16 +1074,6 @@
     <!-- Main Container -->
     <div class="container">
         <div class="main-card">
-            <!-- Icon Logo (Mobile) -->
-            <div class="icon-logo" style="display: none;">
-                <img src="/svg/pawthenticate-icon-only.svg" alt="Pawthenticate Icon">
-            </div>
-            
-            <!-- Full Logo -->
-            <div class="logo-container">
-                <img src="/svg/pawthenticate-logo-complete.svg" alt="Pawthenticate - Where your pet's story lives">
-            </div>
-
             <!-- Main Heading -->
             <h1>Coming Soon</h1>
 
@@ -1222,27 +1212,6 @@
         fetch("https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/takel")
     </script>
 
-    <!-- Responsive Logo Switch -->
-    <script>
-        function handleResponsiveLogo() {
-            const fullLogo = document.querySelector('.logo-container');
-            const iconLogo = document.querySelector('.icon-logo');
-
-            if (window.innerWidth <= 480) {
-                fullLogo.style.display = 'none';
-                iconLogo.style.display = 'block';
-            } else {
-                fullLogo.style.display = 'block';
-                iconLogo.style.display = 'none';
-            }
-        }
-
-        // Run on load
-        handleResponsiveLogo();
-
-        // Run on resize
-        window.addEventListener('resize', handleResponsiveLogo);
-    </script>
 </body>
 
 </html>
