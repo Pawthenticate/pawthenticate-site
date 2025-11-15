@@ -223,9 +223,9 @@ export async function sendEmail(options: EmailOptions) {
   );
   let html = fs.readFileSync(templatePath, 'utf-8');
 
-  // Replace variables (e.g., {{ .ConfirmationURL }})
+  // Replace variables (e.g., {% raw %}{{ .ConfirmationURL }}{% endraw %})
   Object.entries(options.variables).forEach(([key, value]) => {
-    const regex = new RegExp(`{{ \\.${key} }}`, 'g');
+    const regex = new RegExp(`{% raw %}{{ \\.${key} }}{% endraw %}`, 'g');
     html = html.replace(regex, value);
   });
 
@@ -310,10 +310,10 @@ If you want to keep using Supabase's built-in email system:
    - Click **"Confirm signup"**
    - Replace the HTML with content from `confirm-email.html`
    - Available variables in Supabase:
-     - `{{ .ConfirmationURL }}` - Confirmation link
-     - `{{ .Token }}` - Raw token
-     - `{{ .TokenHash }}` - Token hash
-     - `{{ .SiteURL }}` - Your site URL
+     - {% raw %}`{{ .ConfirmationURL }}`{% endraw %} - Confirmation link
+     - {% raw %}`{{ .Token }}`{% endraw %} - Raw token
+     - {% raw %}`{{ .TokenHash }}`{% endraw %} - Token hash
+     - {% raw %}`{{ .SiteURL }}`{% endraw %} - Your site URL
 
    #### Password Recovery Template:
    - Click **"Reset password"**
@@ -341,12 +341,14 @@ Supabase's free tier sends emails from `noreply@mail.app.supabase.io`. To use `n
 
 All templates use these variable formats:
 
+{% raw %}
 ```html
 {{ .ConfirmationURL }}  <!-- Supabase format -->
 {{ .SiteURL }}
 {{ .Token }}
 {{ .TokenHash }}
 ```
+{% endraw %}
 
 If using custom backend (nodemailer), you can use any variables you want!
 

@@ -94,8 +94,8 @@ MailerLite makes it easy to send beautiful campaigns to your subscribers!
 
 4. **Customize variables:**
    - Replace placeholders:
-     - `{{ .ConfirmationURL }}` → MailerLite merge tag
-     - `{{ .SiteURL }}` → `https://pawthenticate.com`
+     - {% raw %}`{{ .ConfirmationURL }}`{% endraw %} → MailerLite merge tag
+     - {% raw %}`{{ .SiteURL }}`{% endraw %} → `https://pawthenticate.com`
 
 5. **Save template:**
    - Name it: `Pawthenticate - Email Confirmation`
@@ -280,11 +280,13 @@ Replace the inline SVG with:
 
 Templates use these variables:
 
+{% raw %}
 ```html
 {{ .ConfirmationURL }}  <!-- Confirmation/reset link -->
 {{ .SiteURL }}           <!-- Your website URL -->
 {{ .Token }}             <!-- Raw token (if needed) -->
 ```
+{% endraw %}
 
 In MailerLite, use their merge tags:
 - `{$url}` for links

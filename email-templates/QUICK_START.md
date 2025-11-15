@@ -197,7 +197,7 @@ For testing, this is normal. For production:
 2. Use `no-reply@pawthenticate.com` as sender
 3. See full guide in `SETUP_GUIDE.md`
 
-### Variables not replacing (showing `{{ .ConfirmationURL }}`)?
+### Variables not replacing (showing {% raw %}`{{ .ConfirmationURL }}`{% endraw %})?
 
 - Make sure you're passing the URL to the function:
   ```typescript
