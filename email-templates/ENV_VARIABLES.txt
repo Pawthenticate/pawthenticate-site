@@ -1,0 +1,48 @@
+# ========================================
+# Pawthenticate Email Configuration
+# ========================================
+# Copy these variables to your .env.local file
+# (Create .env.local in your project root if it doesn't exist)
+
+# Mailgun Configuration (Recommended for Production)
+SMTP_HOST=smtp.mailgun.org
+SMTP_PORT=587
+SMTP_USER=postmaster@sandboxxxxx.mailgun.org
+SMTP_PASSWORD=your_mailgun_password_here
+SMTP_FROM=no-reply@pawthenticate.com
+
+# Site URL (change for production)
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# ========================================
+# Alternative: Gmail (Testing Only)
+# ========================================
+# SMTP_HOST=smtp.gmail.com
+# SMTP_PORT=587
+# SMTP_USER=your-email@gmail.com
+# SMTP_PASSWORD=your_gmail_app_password
+# SMTP_FROM=no-reply@pawthenticate.com
+
+# ========================================
+# Alternative: AWS SES
+# ========================================
+# SMTP_HOST=email-smtp.us-east-1.amazonaws.com
+# SMTP_PORT=587
+# SMTP_USER=your_aws_smtp_username
+# SMTP_PASSWORD=your_aws_smtp_password
+# SMTP_FROM=no-reply@pawthenticate.com
+
+# ========================================
+# How to Get Mailgun SMTP Credentials:
+# ========================================
+# 1. Sign up at mailgun.com (free: 5,000 emails/month for 3 months)
+# 2. Go to Sending → Domains
+# 3. Click on your sandbox domain (or add your own domain)
+# 4. Scroll to "SMTP credentials" section
+# 5. Username is shown, click "Reset password" for password
+# 6. Copy credentials and paste above
+# 7. For production: Add and verify your domain (pawthenticate.com)
+# 8. Save this file and restart your dev server
+
+# Pricing after free trial: $0.80 per 1,000 emails (pay-as-you-go)
+
