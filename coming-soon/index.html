@@ -1252,20 +1252,8 @@
                 <h3 class="waitlist-title">🐾 Get Early Access!</h3>
                 <p class="waitlist-subtitle">Be the first to know when Pawthenticate launches. Join our waitlist!</p>
                 
-                <form class="waitlist-form" action="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/subscribe" method="post" target="_blank">
-                    <div class="form-row">
-                        <input type="email" name="fields[email]" placeholder="Email address" required class="email-input">
-                        <button type="submit" class="notify-button">Notify Me! 🚀</button>
-                    </div>
-                    
-                    <div class="checkbox-row">
-                        <input type="checkbox" id="consent" name="consent" required>
-                        <label for="consent">I agree to receive occasional email updates about Pawthenticate. No spam, ever. 🐾</label>
-                    </div>
-                    
-                    <input type="hidden" name="ml-submit" value="1">
-                    <input type="hidden" name="anticsrf" value="true">
-                </form>
+                <!-- MailerLite Universal Embedded Form -->
+                <div class="ml-embedded" data-form="yB3dGD"></div>
             </div>
 
             <!-- Footer -->
@@ -1276,20 +1264,15 @@
         </div>
     </div>
 
-    <!-- MailerLite Scripts -->
+    <!-- MailerLite Universal -->
     <script>
-        function ml_webform_success_33378216() {
-            var $ = ml_jQuery || jQuery;
-            $('.ml-subscribe-form-33378216 .row-success').show();
-            $('.ml-subscribe-form-33378216 .row-form').hide();
-        }
+        (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+        .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+        n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+        (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+        ml('account', '1921432');
     </script>
-
-    <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024"
-        type="text/javascript"></script>
-    <script>
-        fetch("https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/takel")
-    </script>
+    <!-- End MailerLite Universal -->
 
 </body>
 
