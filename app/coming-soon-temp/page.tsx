@@ -1,10 +1,11 @@
-'use client';
-
+import React from 'react';
 import Script from 'next/script';
 
-const globalStyles = `
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap');
-@import url("https://assets.mlcdn.com/fonts.css?version=1762785");
+export default function Page() {
+  return (
+    <>
+      <style jsx global>{`
+        @import url("https://assets.mlcdn.com/fonts.css?version=1762785");
 
         /* LOADER */
         .ml-form-embedSubmitLoad {
@@ -797,7 +798,7 @@ const globalStyles = `
             width: 100% !important;
           }
         }
-      `}</style >
+      `}</style>
 
       <div id="mlb2-33378216" className="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-33378216">
         <div className="ml-form-align-center">
