@@ -2,12 +2,193 @@
 
 import React from 'react';
 import Script from 'next/script';
+import Image from 'next/image';
 
 export default function Page() {
   return (
     <>
       <style jsx global>{`
         @import url("https://assets.mlcdn.com/fonts.css?version=1762785");
+
+        /* ===== RESET & BASE ===== */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        body {
+          font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+          background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 50%, #FFF0DC 100%);
+          min-height: 100vh;
+          overflow-x: hidden;
+          position: relative;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes float {
+          0%, 100% {
+            transform: translate(0, 0) scale(1);
+          }
+          33% {
+            transform: translate(30px, -30px) scale(1.05);
+          }
+          66% {
+            transform: translate(-30px, 30px) scale(0.95);
+          }
+        }
+
+        @keyframes heartbeat {
+          0%, 100% {
+            transform: translateY(0) scale(1);
+          }
+          50% {
+            transform: translateY(-5px) scale(1.1);
+          }
+        }
+
+        /* ===== BACKGROUND SHAPES ===== */
+        .bg-shape {
+          position: absolute;
+          border-radius: 50%;
+          opacity: 0.15;
+          animation: float 20s ease-in-out infinite;
+        }
+
+        .bg-shape-1 {
+          top: -100px;
+          left: -100px;
+          width: 300px;
+          height: 300px;
+          background: #FF6B6B;
+        }
+
+        .bg-shape-2 {
+          bottom: -50px;
+          right: -50px;
+          width: 200px;
+          height: 200px;
+          background: #FFB347;
+          animation-delay: 3s;
+        }
+
+        .bg-shape-3 {
+          top: 50%;
+          right: 10%;
+          width: 150px;
+          height: 150px;
+          background: #8F6548;
+          animation-delay: 6s;
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .container {
+          position: relative;
+          z-index: 10;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+
+        .main-card {
+          width: 100%;
+          max-width: 800px;
+          background: white;
+          border-radius: 30px;
+          box-shadow: 0 20px 60px rgba(255, 107, 107, 0.15);
+          padding: 60px 40px;
+          text-align: center;
+        }
+
+        /* ===== LOGO ===== */
+        .logo-container {
+          margin-bottom: 40px;
+        }
+
+        .logo-container img {
+          max-width: 800px;
+          width: 100%;
+          height: auto;
+          margin: 0 auto;
+          display: block;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1 {
+          font-size: 3.5rem;
+          font-weight: 800;
+          margin-bottom: 20px;
+          background: linear-gradient(135deg, #FF6B6B 0%, #FFB347 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          line-height: 1.2;
+        }
+
+        .subtitle {
+          font-size: 1.75rem;
+          color: #8F6548;
+          margin-bottom: 30px;
+          font-style: italic;
+          font-weight: 400;
+        }
+
+        .description {
+          font-size: 1.125rem;
+          color: #6B7280;
+          line-height: 1.8;
+          margin-bottom: 40px;
+        }
+
+        /* ===== PAW DIVIDER ===== */
+        .paw-divider {
+          display: flex;
+          justify-content: center;
+          gap: 30px;
+          margin: 40px 0;
+        }
+
+        .paw-icon {
+          width: 40px;
+          height: 40px;
+          opacity: 0.3;
+          animation: heartbeat 2s ease-in-out infinite;
+        }
+
+        .paw-icon:nth-child(2) {
+          animation-delay: 0.3s;
+        }
+
+        .paw-icon:nth-child(3) {
+          animation-delay: 0.6s;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+          margin-top: 50px;
+          padding-top: 30px;
+          border-top: 2px solid #FFE8CC;
+          font-size: 0.95rem;
+          color: #8F6548;
+        }
+
+        .footer p {
+          margin-bottom: 10px;
+        }
+
+        .footer a {
+          color: #FF6B6B;
+          text-decoration: none;
+          font-weight: 700;
+          font-size: 1.1rem;
+          transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+          color: #FFB347;
+        }
 
         /* LOADER */
         .ml-form-embedSubmitLoad {
@@ -800,79 +981,214 @@ export default function Page() {
             width: 100% !important;
           }
         }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+          .main-card {
+            padding: 40px 25px;
+          }
+
+          h1 {
+            font-size: 2.5rem;
+          }
+
+          .subtitle {
+            font-size: 1.35rem;
+          }
+
+          .description {
+            font-size: 1rem;
+          }
+
+          .logo-container img {
+            max-width: 400px;
+          }
+
+          .paw-divider {
+            gap: 20px;
+          }
+
+          .paw-icon {
+            width: 30px;
+            height: 30px;
+          }
+
+          #mlb2-33378216 .ml-form-horizontalRow {
+            flex-direction: column !important;
+            gap: 15px !important;
+          }
+
+          #mlb2-33378216 .ml-input-horizontal,
+          #mlb2-33378216 .ml-button-horizontal {
+            width: 100% !important;
+          }
+
+          #mlb2-33378216 .ml-button-horizontal button {
+            width: 100% !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .main-card {
+            padding: 30px 20px;
+          }
+
+          h1 {
+            font-size: 2rem;
+          }
+
+          .subtitle {
+            font-size: 1.1rem;
+          }
+
+          .logo-container img {
+            max-width: 350px;
+          }
+
+          #mlb2-33378216 .ml-form-embedWrapper {
+            padding: 25px 20px !important;
+          }
+
+          #mlb2-33378216 .ml-form-embedBody .ml-form-embedContent h4 {
+            font-size: 1.5rem !important;
+          }
+        }
       `}</style>
 
-      <div id="mlb2-33378216" className="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-33378216">
-        <div className="ml-form-align-center">
-          <div className="ml-form-embedWrapper embedForm">
-            <div className="ml-form-embedBody ml-form-embedBodyHorizontal row-form">
-              <div className="ml-form-embedContent" style={{}}>
-                <h4>🐾 Get Early Access!</h4>
-                <p>Be the first to know when Pawthenticate launches. Join our waitlist!</p>
-              </div>
+      {/* Background Shapes */}
+      <div className="bg-shape bg-shape-1"></div>
+      <div className="bg-shape bg-shape-2"></div>
+      <div className="bg-shape bg-shape-3"></div>
 
-              <form 
-                className="ml-block-form" 
-                action="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/subscribe" 
-                data-code="" 
-                method="post" 
-                target="_blank"
-              >
-                <div className="ml-form-formContent horozintalForm">
-                  <div className="ml-form-horizontalRow">
-                    <div className="ml-input-horizontal">
-                      <div style={{width: '100%'}} className="horizontal-fields">
-                        <div className="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                          <input 
-                            type="email" 
-                            className="form-control" 
-                            data-inputmask="" 
-                            name="fields[email]" 
-                            placeholder="Email address" 
-                            autoComplete="email"
-                          />
+      {/* Main Container */}
+      <div className="container">
+        <div className="main-card">
+          {/* Logo */}
+          <div className="logo-container">
+            <img src="/svg/pawthenticate-logo-complete.svg" alt="Pawthenticate - Where your pet's story lives" />
+          </div>
+
+          {/* Main Heading */}
+          <h1>Coming Soon</h1>
+
+          {/* Subtitle */}
+          <p className="subtitle">🐾 Something paw-some is on the way!</p>
+
+          {/* Description */}
+          <p className="description">
+            We're working hard to bring you an amazing experience where your pet's story comes to life.
+            Create beautiful, professional resumes for your furry friends that showcase their unique personality,
+            skills, and adventures.
+          </p>
+
+          {/* Paw Divider */}
+          <div className="paw-divider">
+            <svg className="paw-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <g transform="translate(20, 25)">
+                <ellipse cx="0" cy="0" rx="8" ry="7" fill="#FF6B6B" />
+                <circle cx="-6" cy="-9" r="4" fill="#FFB347" />
+                <circle cx="6" cy="-9" r="4" fill="#FFB347" />
+                <circle cx="0" cy="-13" r="4.5" fill="#FF6B6B" />
+              </g>
+            </svg>
+            <svg className="paw-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <g transform="translate(20, 25)">
+                <ellipse cx="0" cy="0" rx="8" ry="7" fill="#FFB347" />
+                <circle cx="-6" cy="-9" r="4" fill="#FF6B6B" />
+                <circle cx="6" cy="-9" r="4" fill="#FF6B6B" />
+                <circle cx="0" cy="-13" r="4.5" fill="#FFB347" />
+              </g>
+            </svg>
+            <svg className="paw-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <g transform="translate(20, 25)">
+                <ellipse cx="0" cy="0" rx="8" ry="7" fill="#8F6548" />
+                <circle cx="-6" cy="-9" r="4" fill="#A0826D" />
+                <circle cx="6" cy="-9" r="4" fill="#A0826D" />
+                <circle cx="0" cy="-13" r="4.5" fill="#8F6548" />
+              </g>
+            </svg>
+          </div>
+
+          {/* MailerLite Form */}
+          <div id="mlb2-33378216" className="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-33378216">
+            <div className="ml-form-align-center">
+              <div className="ml-form-embedWrapper embedForm">
+                <div className="ml-form-embedBody ml-form-embedBodyHorizontal row-form">
+                  <div className="ml-form-embedContent">
+                    <h4>🐾 Get Early Access!</h4>
+                    <p>Be the first to know when Pawthenticate launches. Join our waitlist!</p>
+                  </div>
+
+                  <form 
+                    className="ml-block-form" 
+                    action="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/subscribe" 
+                    data-code="" 
+                    method="post" 
+                    target="_blank"
+                  >
+                    <div className="ml-form-formContent horozintalForm">
+                      <div className="ml-form-horizontalRow">
+                        <div className="ml-input-horizontal">
+                          <div style={{width: '100%'}} className="horizontal-fields">
+                            <div className="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+                              <input 
+                                type="email" 
+                                className="form-control" 
+                                data-inputmask="" 
+                                name="fields[email]" 
+                                placeholder="Email address" 
+                                autoComplete="email"
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="ml-button-horizontal primary">
+                          <button type="submit" className="primary">Notify Me! 🚀</button>
+                          <button disabled style={{display: 'none'}} type="button" className="loading">
+                            <div className="ml-form-embedSubmitLoad"></div>
+                            <span className="sr-only">Loading...</span>
+                          </button>
                         </div>
                       </div>
                     </div>
 
-                    <div className="ml-button-horizontal primary">
+                    <div className="ml-form-checkboxRow ml-validate-required">
+                      <label className="checkbox">
+                        <input type="checkbox" />
+                        <div className="label-description">
+                          <p>I agree to receive occasional email updates about Pawthenticate. No spam, ever. 🐾</p>
+                        </div>
+                      </label>
+                    </div>
+
+                    <input type="hidden" name="ml-submit" value="1" />
+
+                    <div className="ml-mobileButton-horizontal">
                       <button type="submit" className="primary">Notify Me! 🚀</button>
                       <button disabled style={{display: 'none'}} type="button" className="loading">
                         <div className="ml-form-embedSubmitLoad"></div>
                         <span className="sr-only">Loading...</span>
                       </button>
                     </div>
+                    <input type="hidden" name="anticsrf" value="true" />
+                  </form>
+                </div>
+
+                <div className="ml-form-successBody row-success" style={{display: 'none'}}>
+                  <div className="ml-form-successContent">
+                    <h4>Thank you! 🎉</h4>
+                    <p>You have successfully joined our waitlist. We'll notify you as soon as we launch!</p>
                   </div>
                 </div>
-
-                <div className="ml-form-checkboxRow ml-validate-required">
-                  <label className="checkbox">
-                    <input type="checkbox" />
-                    <div className="label-description">
-                      <p>I agree to receive occasional email updates about Pawthenticate. No spam, ever. 🐾</p>
-                    </div>
-                  </label>
-                </div>
-
-                <input type="hidden" name="ml-submit" value="1" />
-
-                <div className="ml-mobileButton-horizontal">
-                  <button type="submit" className="primary">Notify Me! 🚀</button>
-                  <button disabled style={{display: 'none'}} type="button" className="loading">
-                    <div className="ml-form-embedSubmitLoad"></div>
-                    <span className="sr-only">Loading...</span>
-                  </button>
-                </div>
-                <input type="hidden" name="anticsrf" value="true" />
-              </form>
-            </div>
-
-            <div className="ml-form-successBody row-success" style={{display: 'none'}}>
-              <div className="ml-form-successContent">
-                <h4>Thank you!</h4>
-                <p>You have successfully joined our subscriber list.</p>
               </div>
             </div>
+          </div>
+
+          {/* Footer */}
+          <div className="footer">
+            <p>Have questions or want to get in touch?</p>
+            <a href="mailto:hello@pawthenticate.com">hello@pawthenticate.com</a>
           </div>
         </div>
       </div>
