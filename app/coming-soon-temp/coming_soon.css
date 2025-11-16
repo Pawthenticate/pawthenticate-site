@@ -30,28 +30,21 @@ body {
 
 /* ===== ANIMATIONS ===== */
 @keyframes float {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: translate(0, 0) scale(1);
   }
-
   33% {
     transform: translate(30px, -30px) scale(1.05);
   }
-
   66% {
     transform: translate(-30px, 30px) scale(0.95);
   }
 }
 
 @keyframes heartbeat {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0) scale(1);
   }
-
   50% {
     transform: translateY(-5px) scale(1.1);
   }
@@ -61,7 +54,6 @@ body {
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
@@ -254,7 +246,7 @@ h1 {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip: rect(0,0,0,0);
   border: 0;
 }
 
@@ -306,31 +298,31 @@ h1 {
 }
 
 #mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper.embedPopup,
-#mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper.embedDefault {
-  width: 700px;
+#mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper.embedDefault { 
+  width: 700px; 
 }
 
-#mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper.embedForm {
-  max-width: 700px;
-  width: 100%;
+#mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper.embedForm { 
+  max-width: 700px; 
+  width: 100%; 
 }
 
-#mlb2-33378216.ml-form-embedContainer .ml-form-align-left {
-  text-align: left;
+#mlb2-33378216.ml-form-embedContainer .ml-form-align-left { 
+  text-align: left; 
 }
 
-#mlb2-33378216.ml-form-embedContainer .ml-form-align-center {
-  text-align: center;
+#mlb2-33378216.ml-form-embedContainer .ml-form-align-center { 
+  text-align: center; 
 }
 
-#mlb2-33378216.ml-form-embedContainer .ml-form-align-default {
-  display: table-cell !important;
-  vertical-align: middle !important;
-  text-align: center !important;
+#mlb2-33378216.ml-form-embedContainer .ml-form-align-default { 
+  display: table-cell !important; 
+  vertical-align: middle !important; 
+  text-align: center !important; 
 }
 
-#mlb2-33378216.ml-form-embedContainer .ml-form-align-right {
-  text-align: right;
+#mlb2-33378216.ml-form-embedContainer .ml-form-align-right { 
+  text-align: right; 
 }
 
 #mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedHeader img {
@@ -413,24 +405,24 @@ h1 {
   float: left;
 }
 
-.ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal {
-  width: 70%;
-  float: left;
+.ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { 
+  width: 70%; 
+  float: left; 
 }
 
-.ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal {
-  width: 30%;
-  float: left;
+.ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal { 
+  width: 30%; 
+  float: left; 
 }
 
-.ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal.labelsOn {
-  padding-top: 23px;
+.ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-button-horizontal.labelsOn { 
+  padding-top: 23px;  
 }
 
-.ml-form-formContent.horozintalForm .ml-form-horizontalRow .horizontal-fields {
-  box-sizing: border-box;
-  float: left;
-  padding-right: 10px;
+.ml-form-formContent.horozintalForm .ml-form-horizontalRow .horizontal-fields { 
+  box-sizing: border-box; 
+  float: left; 
+  padding-right: 10px;  
 }
 
 #mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow input {
@@ -529,13 +521,13 @@ h1 {
   background-color: #ffffff;
   border: #adb5bd solid 1px;
   border-radius: 50%;
-  border-color: #FFE0C0 !important;
-  background-color: #ffffff !important;
+  border-color: #FFE0C0!important;
+  background-color: #ffffff!important;
 }
 
 #mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description::after {
   position: absolute;
-  top: 0px !important;
+  top: 0px!important;
   left: -1.5rem;
   display: block;
   width: 1rem;
@@ -548,13 +540,13 @@ h1 {
   background: no-repeat 50%/50% 50%;
 }
 
-#mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::before {
-  border-color: #FFE0C0 !important;
-  background-color: #FF6B6B !important;
+#mlb2-33378216.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type=checkbox]:checked~.label-description::before  {
+  border-color: #FFE0C0!important;
+  background-color: #FF6B6B!important;
 }
 
-.ml-mobileButton-horizontal {
-  display: none;
+.ml-mobileButton-horizontal { 
+  display: none; 
 }
 
 #mlb2-33378216 .ml-mobileButton-horizontal button {
@@ -581,38 +573,37 @@ h1 {
 }
 
 /* ===== RESPONSIVE ===== */
-@media only screen and (max-width: 700px) {
-
-  .ml-form-embedWrapper.embedDefault,
-  .ml-form-embedWrapper.embedPopup {
-    width: 100% !important;
+@media only screen and (max-width: 700px){
+  .ml-form-embedWrapper.embedDefault, 
+  .ml-form-embedWrapper.embedPopup { 
+    width: 100%!important; 
   }
 
-  .ml-form-formContent.horozintalForm {
-    float: left !important;
+  .ml-form-formContent.horozintalForm { 
+    float: left!important; 
   }
 
-  .ml-form-formContent.horozintalForm .ml-form-horizontalRow {
-    height: auto !important;
-    width: 100% !important;
-    float: left !important;
+  .ml-form-formContent.horozintalForm .ml-form-horizontalRow { 
+    height: auto!important; 
+    width: 100%!important; 
+    float: left!important; 
   }
 
-  .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal {
-    width: 100% !important;
+  .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal { 
+    width: 100%!important; 
   }
 
-  .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal>div {
-    padding-right: 0px !important;
-    padding-bottom: 10px;
+  .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal > div { 
+    padding-right: 0px!important; 
+    padding-bottom: 10px; 
   }
 
-  .ml-form-formContent.horozintalForm .ml-button-horizontal {
-    width: 100% !important;
+  .ml-form-formContent.horozintalForm .ml-button-horizontal { 
+    width: 100%!important; 
   }
 
-  .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn {
-    padding-top: 0px !important;
+  .ml-form-formContent.horozintalForm .ml-button-horizontal.labelsOn { 
+    padding-top: 0px!important; 
   }
 
   .ml-button-horizontal {
@@ -625,8 +616,8 @@ h1 {
     width: 100%;
   }
 
-  .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal>div {
-    padding-bottom: 0px !important;
+  .ml-form-formContent.horozintalForm .ml-form-horizontalRow .ml-input-horizontal > div { 
+    padding-bottom: 0px !important; 
   }
 }
 
@@ -693,4 +684,3 @@ h1 {
     font-size: 1.5rem !important;
   }
 }
-
