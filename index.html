@@ -67,30 +67,54 @@
 
       <!-- MailerLite Form -->
       <div id="mlb2-33378216" class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-33378216">
-        <div class="ml-form-align-center">
+        <div class="ml-form-align-center ">
           <div class="ml-form-embedWrapper embedForm">
+
+
+
             <div class="ml-form-embedBody ml-form-embedBodyHorizontal row-form">
-              <div class="ml-form-embedContent">
-                <h4>🐾 Get Early Access!</h4>
-                <p>Be the first to know when Pawthenticate launches. Join our waitlist!</p>
+
+              <div class="ml-form-embedContent" style=" ">
+
+                  <h4>🐾 Get Early Access!</h4>
+                  <p>Be the first to know when Pawthenticate launches. Join our waitlist!</p>
+
               </div>
 
-              <form class="ml-block-form"
-                action="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/subscribe" method="post">
+              <form class="ml-block-form" action="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/subscribe" data-code="" method="post" target="_blank">
+
+
                 <div class="ml-form-formContent horozintalForm">
                   <div class="ml-form-horizontalRow">
                     <div class="ml-input-horizontal">
-                      <div style="width: 100%" class="horizontal-fields">
-                        <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                          <input type="email" class="form-control" name="fields[email]" placeholder="Email address"
-                            autocomplete="email" />
+
+
+                        <div style="width: 100%;" class="horizontal-fields">
+
+
+
+
+
+
+                          <div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
+
+                            <!-- input -->
+                        <input type="email" class="form-control" data-inputmask="" name="fields[email]" placeholder="Email address" autocomplete="email">
+                        <!-- /input -->
+                          </div>
+
+
+
                         </div>
-                      </div>
+
                     </div>
 
-                    <div class="ml-button-horizontal primary">
-                      <button type="submit" class="primary">Notify Me! 🚀</button>
-                      <button disabled style="display: none" type="button" class="loading">
+
+                    <div class="ml-button-horizontal primary ">
+
+                        <button type="submit" class="primary">Notify Me! 🚀</button>
+
+                      <button disabled="disabled" style="display: none;" type="button" class="loading">
                         <div class="ml-form-embedSubmitLoad"></div>
                         <span class="sr-only">Loading...</span>
                       </button>
@@ -98,35 +122,57 @@
                   </div>
                 </div>
 
+                <!-- Privacy policy -->
+
+                <!-- /Privacy policy -->
+
+
+
+
+
                 <div class="ml-form-checkboxRow ml-validate-required">
-                  <label class="checkbox">
-                    <input type="checkbox" />
-                    <div class="label-description">
-                      <p>
-                        I agree to receive occasional email updates about Pawthenticate. No spam, ever. 🐾
-                      </p>
-                    </div>
-                  </label>
+
+                    <label class="checkbox">
+                      <input type="checkbox">
+                      <div class="label-description">
+                        <p>I agree to receive occasional email updates about Pawthenticate. No spam, ever. 🐾</p>
+                      </div>
+                    </label>
+
                 </div>
 
-                <input type="hidden" name="ml-submit" value="1" />
+
+
+
+
+
+
+                <input type="hidden" name="ml-submit" value="1">
+
+
 
                 <div class="ml-mobileButton-horizontal">
                   <button type="submit" class="primary">Notify Me! 🚀</button>
-                  <button disabled style="display: none" type="button" class="loading">
+                  <button disabled="disabled" style="display: none;" type="button" class="loading">
                     <div class="ml-form-embedSubmitLoad"></div>
                     <span class="sr-only">Loading...</span>
                   </button>
                 </div>
-                <input type="hidden" name="anticsrf" value="true" />
+                <input type="hidden" name="anticsrf" value="true">
               </form>
             </div>
 
             <div class="ml-form-successBody row-success" style="display: none">
+
               <div class="ml-form-successContent">
-                <h4>Thank you! 🎉</h4>
-                <p>You have successfully joined our waitlist. We'll notify you as soon as we launch!</p>
+
+                  <h4>Thank you!</h4>
+
+                    <p>You have successfully joined our subscriber list.</p>
+
+
               </div>
+
             </div>
           </div>
         </div>
@@ -141,8 +187,19 @@
   </div>
 
   <!-- MailerLite Scripts -->
-  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" defer></script>
-  <script src="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/takel" defer></script>
+  <script>
+    function ml_webform_success_33378216() {
+      var $ = ml_jQuery || jQuery;
+      $('.ml-subscribe-form-33378216 .row-success').show();
+      $('.ml-subscribe-form-33378216 .row-form').hide();
+    }
+      </script>
+
+
+      <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" type="text/javascript"></script>
+        <script>
+            fetch("https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/takel")
+        </script>
 </body>
 
 </html>

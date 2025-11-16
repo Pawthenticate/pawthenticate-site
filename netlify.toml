@@ -1,0 +1,31 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self' https:; script-src 'self' 'unsafe-inline' https://groot.mailerlite.com https://assets.mailerlite.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://assets.mailerlite.com; frame-src 'none'; object-src 'none'"
+
+# Force HTTPS
+[[redirects]]
+  from = "http://pawthenticate.com/*"
+  to = "https://pawthenticate.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.pawthenticate.com/*"
+  to = "https://www.pawthenticate.com/:splat"
+  status = 301
+  force = true
