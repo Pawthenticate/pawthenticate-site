@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Script from 'next/script';
-import './coming_soon.css';
+import './coming-soon.css';
 
 export default function Page() {
   return (
