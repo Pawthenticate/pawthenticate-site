@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Script from 'next/script';
-import './coming-soon.css';
+import './coming_soon.css';
 
 export default function Page() {
   return (
@@ -76,7 +76,6 @@ export default function Page() {
                     action="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/subscribe"
                     data-code=""
                     method="post"
-                    target="_blank"
                   >
                     <div className="ml-form-formContent horozintalForm">
                       <div className="ml-form-horizontalRow">
