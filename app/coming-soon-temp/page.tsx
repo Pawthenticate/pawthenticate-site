@@ -21,8 +21,12 @@ export default function Page() {
           font-family: 'Open Sans', Arial, Helvetica, sans-serif;
           background: linear-gradient(135deg, #FFF5E6 0%, #FFE8CC 50%, #FFF0DC 100%);
           min-height: 100vh;
+          width: 100%;
           overflow-x: hidden;
           position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         /* ===== ANIMATIONS ===== */
@@ -85,16 +89,15 @@ export default function Page() {
         .container {
           position: relative;
           z-index: 10;
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
+          width: 100%;
+          max-width: 1200px;
+          padding: 40px 20px;
         }
 
         .main-card {
           width: 100%;
           max-width: 800px;
+          margin: 0 auto;
           background: white;
           border-radius: 30px;
           box-shadow: 0 20px 60px rgba(255, 107, 107, 0.15);
@@ -1119,24 +1122,24 @@ export default function Page() {
                     <p>Be the first to know when Pawthenticate launches. Join our waitlist!</p>
                   </div>
 
-                  <form 
-                    className="ml-block-form" 
-                    action="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/subscribe" 
-                    data-code="" 
-                    method="post" 
+                  <form
+                    className="ml-block-form"
+                    action="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/subscribe"
+                    data-code=""
+                    method="post"
                     target="_blank"
                   >
                     <div className="ml-form-formContent horozintalForm">
                       <div className="ml-form-horizontalRow">
                         <div className="ml-input-horizontal">
-                          <div style={{width: '100%'}} className="horizontal-fields">
+                          <div style={{ width: '100%' }} className="horizontal-fields">
                             <div className="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-                              <input 
-                                type="email" 
-                                className="form-control" 
-                                data-inputmask="" 
-                                name="fields[email]" 
-                                placeholder="Email address" 
+                              <input
+                                type="email"
+                                className="form-control"
+                                data-inputmask=""
+                                name="fields[email]"
+                                placeholder="Email address"
                                 autoComplete="email"
                               />
                             </div>
@@ -1145,7 +1148,7 @@ export default function Page() {
 
                         <div className="ml-button-horizontal primary">
                           <button type="submit" className="primary">Notify Me! 🚀</button>
-                          <button disabled style={{display: 'none'}} type="button" className="loading">
+                          <button disabled style={{ display: 'none' }} type="button" className="loading">
                             <div className="ml-form-embedSubmitLoad"></div>
                             <span className="sr-only">Loading...</span>
                           </button>
@@ -1166,7 +1169,7 @@ export default function Page() {
 
                     <div className="ml-mobileButton-horizontal">
                       <button type="submit" className="primary">Notify Me! 🚀</button>
-                      <button disabled style={{display: 'none'}} type="button" className="loading">
+                      <button disabled style={{ display: 'none' }} type="button" className="loading">
                         <div className="ml-form-embedSubmitLoad"></div>
                         <span className="sr-only">Loading...</span>
                       </button>
@@ -1175,7 +1178,7 @@ export default function Page() {
                   </form>
                 </div>
 
-                <div className="ml-form-successBody row-success" style={{display: 'none'}}>
+                <div className="ml-form-successBody row-success" style={{ display: 'none' }}>
                   <div className="ml-form-successContent">
                     <h4>Thank you! 🎉</h4>
                     <p>You have successfully joined our waitlist. We'll notify you as soon as we launch!</p>
@@ -1193,12 +1196,12 @@ export default function Page() {
         </div>
       </div>
 
-      <Script 
-        src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024" 
+      <Script
+        src="https://groot.mailerlite.com/js/w/webforms.min.js?v176e10baa5e7ed80d35ae235be3d5024"
         strategy="afterInteractive"
         onLoad={() => {
           if (typeof window !== 'undefined') {
-            (window as any).ml_webform_success_33378216 = function() {
+            (window as any).ml_webform_success_33378216 = function () {
               const $ = (window as any).ml_jQuery || (window as any).jQuery;
               if ($) {
                 $('.ml-subscribe-form-33378216 .row-success').show();
@@ -1209,8 +1212,8 @@ export default function Page() {
         }}
       />
 
-      <Script 
-        src="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/takel" 
+      <Script
+        src="https://assets.mailerlite.com/jsonp/1921432/forms/171107786706388110/takel"
         strategy="afterInteractive"
       />
     </>
